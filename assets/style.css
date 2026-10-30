@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 .floor-guide-button{display:none}@media(max-width:900px){.floor-guide-button{display:block;position:absolute;right:22px;bottom:110px;z-index:4;background:var(--ink);color:var(--paper-light);padding:11px 16px;font-size:11px;border:1px solid var(--ink)}}@media(max-width:600px){.floor-guide-button{left:50%;right:auto;transform:translateX(-50%);bottom:103px;white-space:nowrap;padding:10px 16px}.map-canvas svg#map{overflow:hidden}}
+
+.map-location{display:flex;flex-direction:column;align-items:flex-start;gap:10px}.back-to-building{background:#34352f;color:#faf7f1;border:1px solid #34352f;padding:11px 16px;font:inherit;font-size:12px;cursor:pointer;box-shadow:0 3px 10px #34352f18}.back-to-building:hover{background:#2a4c9e;border-color:#2a4c9e}.back-to-building[hidden]{display:none}.map-canvas{touch-action:none}@media(max-width:600px){.back-to-building{font-size:11px;padding:10px}.map-topbar{align-items:flex-start;gap:8px}}
