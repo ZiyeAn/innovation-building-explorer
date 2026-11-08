@@ -145,6 +145,23 @@ function drawBuildingShell(){
  polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+115,roofBase[1]+53],[roofBase[0],roofBase[1]]],'#e9e9df',.95);
  polygon([[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+170,roofBase[1]+26],[roofBase[0]+115,roofBase[1]+53]],'#d9dfda',.95);
  polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+55,roofBase[1]-127],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+115,roofBase[1]-47]],'#f2eee5',.95);
+ // External spaces become open balconies on the right-hand facade.
+ const balconyPoint=(t,dy)=>[E[0]+(B[0]-E[0])*t,E[1]+(B[1]-E[1])*t+dy];
+ const out=p=>[p[0]+185,p[1]+85];
+ for(let floor=0;floor<4;floor++){
+  const level=(floor+1)*height/4-38,p=balconyPoint(.06,level),q=balconyPoint(.94,level),r=out(q),t=out(p);
+  polygon([p,q,r,t],'#f6bb02',.17);
+  polygon([t,r,down(r,13),down(t,13)],'#d8d1b6',.7);
+  // Low, open railings preserve the lightweight architectural drawing.
+  line([down(p,-67),down(t,-67),down(r,-67),down(q,-67)],.8,2);
+  for(let post=0;post<=6;post++){
+   const u=post/6,foot=[t[0]+(r[0]-t[0])*u,t[1]+(r[1]-t[1])*u];line([foot,down(foot,-67)],.65,1.7);
+  }
+  line([p,down(p,-67)],.7,1.7);line([q,down(q,-67)],.7,1.7);
+  const planter=[r[0]-42,r[1]+4];
+  polygon([[planter[0]-22,planter[1]-7],[planter[0]+18,planter[1]-26],[planter[0]+36,planter[1]-17],[planter[0]-4,planter[1]+2]],'#aebc9e',.6);
+  for(let leaf=0;leaf<3;leaf++)svg('circle',{cx:planter[0]-9+leaf*12,cy:planter[1]-21-leaf*5,r:10,fill:'#9db99f','fill-opacity':.7,stroke:'#7f927d','stroke-opacity':.55,'stroke-width':1.3},g);
+ }
  svg('text',{x:-135,y:base[3][1]+80,fill:'#777467','font-family':'DM Sans','font-size':24},g).textContent='GROUND / LL';
  g.style.opacity=state.exterior;
 }
