@@ -23,14 +23,14 @@
 .inspector .detail-list li{padding:15px 0}
 .inspector .room-navigation{gap:18px}
 
-.presentation-toolbar{position:fixed;z-index:40;top:0;left:0;right:0;min-height:62px;display:flex;align-items:center;gap:24px;justify-content:space-between;padding:10px 24px;background:#dad2c8f5;border-bottom:1px solid var(--line)}.presentation-toolbar strong{font:25px var(--serif);font-weight:400}.presentation-toolbar label{display:flex;align-items:center;gap:10px;font-size:13px}.presentation-toolbar select{background:var(--paper-light);border:1px solid #aaa194;padding:9px 12px;color:var(--ink);font:14px var(--sans)}.presentation-toolbar button{background:var(--ink);color:var(--paper-light);padding:10px 14px;font-size:13px}.presentation-toolbar button span{margin-left:10px;opacity:.65;font-size:11px}body.presenting{overflow:hidden}body.presenting .masthead,body.presenting .navigation,body.presenting .mobile-floor-switch{display:none}body.presenting .app-shell{display:block;height:100dvh;min-height:0;padding-top:62px}body.presenting .map-area{height:100%;min-height:0}body.presenting .inspector{position:fixed;z-index:35;display:none;top:62px;bottom:0;left:auto;right:0;width:min(390px,92vw);height:auto;border-radius:0;background:var(--paper-light);box-shadow:-12px 0 40px #3332}body.presenting .inspector.open{display:block}body.presenting .map-topbar{padding:12px 24px}body.presenting .map-footer{padding-bottom:12px}body.presenting .compass{display:none}@media(max-width:600px){.presentation-toolbar{padding:8px 10px;gap:8px}.presentation-toolbar strong,.presentation-toolbar label{font-size:0}.presentation-toolbar select{font-size:12px;max-width:180px}.presentation-toolbar button{font-size:11px;padding:10px}.presentation-toolbar button span{display:none}body.presenting .inspector{width:100%;max-height:70dvh;top:auto;border-radius:14px 14px 0 0}#present-button{font-size:12px;padding:10px}.header-actions{gap:6px}}
+
 
 /* Give long room names and floor descriptions more reading space. */
 @media(min-width:1201px){.app-shell{grid-template-columns:224px minmax(400px,1fr) 400px}}
 @media(min-width:901px) and (max-width:1200px){.app-shell{grid-template-columns:188px minmax(330px,1fr) 350px}}
 @media(min-width:601px) and (max-width:900px){.inspector{width:min(400px,90vw)}}
-body.presenting .inspector{width:min(460px,92vw)}
-@media(max-width:600px){body.presenting .inspector{width:100%}}
+
+
 
 .plan-stairs{cursor:pointer;outline:none}.plan-stairs-badge{fill:#eee8df;stroke:#77756c;stroke-width:2}.plan-stairs-title{font:28px var(--sans);fill:#33312e;font-weight:500;pointer-events:none}.plan-stairs-icon{stroke:#55574f;stroke-width:1.5;pointer-events:none}.plan-stairs:hover .plan-stairs-badge,.plan-stairs:focus-visible .plan-stairs-badge{fill:#2a4c9e;stroke:#2a4c9e}.plan-stairs:hover .plan-stairs-title,.plan-stairs:focus-visible .plan-stairs-title{fill:#fff}.plan-stairs:hover .plan-stairs-icon,.plan-stairs:focus-visible .plan-stairs-icon{stroke:#fff}
 
