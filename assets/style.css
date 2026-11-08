@@ -12,3 +12,13 @@
 .connection-label{cursor:pointer;outline:none}.connection-leader{stroke:#55574f;stroke-width:2.5;pointer-events:none}.connection-badge{fill:#eee8df;stroke:#77756c;stroke-width:2;transition:fill .18s,stroke .18s}.connection-title{font-family:var(--sans);font-size:40px;font-weight:500;fill:#33312e;pointer-events:none}.connection-label.highlighted .connection-badge,.connection-label:focus-visible .connection-badge{fill:#2a4c9e;stroke:#2a4c9e}.connection-label.highlighted .connection-title,.connection-label:focus-visible .connection-title{fill:#fff}.connection-highlighted{filter:drop-shadow(0 0 7px #2a4c9e);cursor:pointer}.connection-highlighted path{stroke:#2a4c9e;stroke-opacity:1}.stairs-visual,.lift-visual{cursor:pointer}
 
 .detail-toolbar{position:sticky;top:0;z-index:5;display:flex;justify-content:flex-end;align-items:center;height:52px;padding:4px 12px;background:#e8e2da;border-bottom:1px solid var(--line);isolation:isolate}.detail-toolbar .detail-close{position:static;display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0;border-radius:50%;font-size:28px;line-height:1;touch-action:manipulation;pointer-events:auto;background:#dad2c8}.detail-toolbar .detail-close:hover{background:#ccc3b7}.detail-toolbar+.inspector-content{padding-top:20px}
+
+/* Readable detail panel typography at every viewport size. */
+.inspector .lead,.inspector .detail-list li{font-size:16px;line-height:1.75}
+.inspector .inspector-footnote{font-size:14px;line-height:1.75}
+.inspector .back-button,.inspector .category-tag,.inspector .inspector-kicker,.inspector .group-heading,.inspector h3{font-size:13px;line-height:1.6}
+.inspector .room-navigation button,.inspector .related-block button,.inspector .room-list button,.inspector .intro-steps li,.inspector .primary-button,.inspector .text-button{font-size:14px;line-height:1.6}
+.inspector .room-list small,.inspector .floor-summary p,.inspector .search-box input{font-size:13px}
+.inspector .route-button>span{font-size:14px;line-height:1.7}
+.inspector .detail-list li{padding:15px 0}
+.inspector .room-navigation{gap:18px}
