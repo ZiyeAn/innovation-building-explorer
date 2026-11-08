@@ -106,30 +106,51 @@ let exteriorVisible=false,exteriorFloor=null;
 function drawBuildingShell(){
  let g=$('#building-shell');if(!g)g=svg('g',{id:'building-shell','pointer-events':'none','aria-hidden':'true'},world);
  g.innerHTML='';world.appendChild(g);
- const top=floorBase('L3')-100,bottom=floorBase('LL')+280;
- const A=[340,top],B=[903,top+260],D=[-12,top+162],E=[551,top+422],height=bottom-(top+422);
- const polygon=(points,fill,opacity)=>svg('polygon',{points:points.map(p=>p.join(',')).join(' '),fill,'fill-opacity':opacity,stroke:'#777e78','stroke-width':2},g);
- polygon([D,E,[E[0],E[1]+height],[D[0],D[1]+height]],'#c2c6bf',.72);
- polygon([E,B,[B[0],B[1]+height],[E[0],E[1]+height]],'#9caaa5',.55);
- polygon([A,B,E,D],'#e8e2da',.7);
+ const top=floorBase('L3')-100,height=floorBase('LL')-top+60,ink='#2a4c9e';
+ const A=[340,top],B=[903,top+260],D=[-12,top+162],E=[551,top+422];
+ const down=(p,n)=>[p[0],p[1]+n],base=[A,B,E,D].map(p=>down(p,height));
+ const line=(points,opacity=.8,width=2.5)=>svg('polyline',{points:points.map(p=>p.join(',')).join(' '),fill:'none',stroke:ink,'stroke-opacity':opacity,'stroke-width':width},g);
+ const polygon=(points,fill='#eee9df',opacity=.85,stroke=ink)=>svg('polygon',{points:points.map(p=>p.join(',')).join(' '),fill,'fill-opacity':opacity,stroke,'stroke-width':2.5,'stroke-opacity':.8},g);
+ // A ground plane separates the four above-ground floors from Foundation below.
+ const ground=[[340,base[0][1]-85],[1050,base[1][1]-5],[551,base[2][1]+110],[-160,base[3][1]+30]];
+ polygon(ground,'#c6c3b5',.48,'#9b9d8d');
+ const soil=svg('g',{},g);
+ for(const [p,q]of [[ground[3],ground[2]],[ground[2],ground[1]]]){
+  svg('polygon',{points:[p,q,down(q,38),down(p,38)].map(p=>p.join(',')).join(' '),fill:'#b0a590','fill-opacity':.28,stroke:'#9b9485','stroke-opacity':.5,'stroke-width':1.5},soil);
+ }
+ for(const corner of [base[1],base[2],base[3]])svg('path',{d:`M${corner[0]} ${corner[1]+45}v170`,stroke:'#9b9485','stroke-width':2,'stroke-dasharray':'7 7','stroke-opacity':.6},g);
+ polygon([D,E,base[2],base[3]],'#eee9df',.94);
+ polygon([E,B,base[1],base[2]],'#dedfd8',.92);
+ // Continuous roof parapet and plinth, in the same thin architectural linework.
+ polygon([A,B,E,D],'#f0ece3',.95);
+ polygon([D,E,down(E,32),down(D,32)],'#e6e5dc',.95);
+ polygon([E,B,down(B,32),down(E,32)],'#e6e5dc',.95);
+ line([[340,top+35],[840,top+264],[551,top+397],[48,top+165],[340,top+35]],.6,2);
+ polygon([down(D,height-36),down(E,height-36),down(E,height+8),down(D,height+8)],'#e9e6dd',.95);
+ polygon([down(E,height-36),down(B,height-36),down(B,height+8),down(E,height+8)],'#dce0d8',.95);
  for(const [start,end]of [[D,E],[E,B]]){
-  for(let row=0;row<4;row++){
-   const y=height*(row+.16)/4,h=height*.52/4;
-   for(let col=0;col<5;col++){
-    const l=(col+.15)/5,r=(col+.85)/5;
-    const point=(t,dy)=>[start[0]+(end[0]-start[0])*t,start[1]+(end[1]-start[1])*t+y+dy];
-    polygon([point(l,0),point(r,0),point(r,h),point(l,h)],'#80959b',.24);
-   }
+  const point=(t,dy)=>[start[0]+(end[0]-start[0])*t,start[1]+(end[1]-start[1])*t+dy];
+  for(let row=0;row<4;row++)for(let col=0;col<4;col++){
+   if(row===3&&start===D&&col===3)continue;
+   const l=(col+.28)/4,r=(col+.68)/4,y=70+row*(height-100)/4,h=(height-100)*.48/4;
+   polygon([point(l,y),point(r,y),point(r,y+h),point(l,y+h)],'#b5c4c5',.18);
+   for(const fraction of [.33,.66])line([point(l,y+h*fraction),point(r,y+h*fraction)],.62,1.8);
   }
  }
- const doorY=E[1]+height-115;
- polygon([[E[0]-60,doorY-28],[E[0],doorY],[E[0],doorY+115],[E[0]-60,doorY+87]],'#7f9499',.3);
- svg('path',{d:`M${E[0]-30} ${doorY-14}v115`,stroke:'#777e78','stroke-width':2},g);
+ const door=(t,dy)=>[D[0]+(E[0]-D[0])*t,D[1]+(E[1]-D[1])*t+dy];
+ polygon([door(.80,height-155),door(.96,height-155),door(.96,height+8),door(.80,height+8)],'#c0cdd0',.4);
+ line([door(.88,height-155),door(.88,height+8)],.8,2);
+ // Small rooftop service enclosure, rather than a fully detailed 3D object.
+ const roofBase=[410,top+150];
+ polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+115,roofBase[1]+53],[roofBase[0],roofBase[1]]],'#e9e9df',.95);
+ polygon([[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+170,roofBase[1]+26],[roofBase[0]+115,roofBase[1]+53]],'#d9dfda',.95);
+ polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+55,roofBase[1]-127],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+115,roofBase[1]-47]],'#f2eee5',.95);
+ svg('text',{x:-135,y:base[3][1]+80,fill:'#777467','font-family':'DM Sans','font-size':24},g).textContent='GROUND / LL';
  g.style.opacity=state.exterior;
 }
 function exteriorAppearance(){
  const amount=state.exterior;
- for(const f of ORDER){if(f==='Foundation')continue;const g=$('#floor-'+f);$('.floor-plane',g).style.opacity=1-amount*.94;$('.architectural',g).style.opacity=(1-state.projection)*(1-amount);$('.roadblock-pins',g).style.opacity=1-amount;}
+ for(const f of ORDER){if(f==='Foundation')continue;const g=$('#floor-'+f);$('.floor-plane',g).style.opacity=1-amount;$('.architectural',g).style.opacity=(1-state.projection)*(1-amount);$('.roadblock-pins',g).style.opacity=1-amount;}
  $('#building-shell')?.style.setProperty('opacity',amount);
  $('#building-connections').style.visibility=exteriorVisible?'hidden':'';
 }
