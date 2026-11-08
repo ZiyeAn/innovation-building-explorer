@@ -31,3 +31,5 @@
 @media(min-width:601px) and (max-width:900px){.inspector{width:min(400px,90vw)}}
 body.presenting .inspector{width:min(460px,92vw)}
 @media(max-width:600px){body.presenting .inspector{width:100%}}
+
+.plan-stairs{cursor:pointer;outline:none}.plan-stairs-badge{fill:#eee8df;stroke:#77756c;stroke-width:2}.plan-stairs-title{font:28px var(--sans);fill:#33312e;font-weight:500;pointer-events:none}.plan-stairs-icon{stroke:#55574f;stroke-width:1.5;pointer-events:none}.plan-stairs:hover .plan-stairs-badge,.plan-stairs:focus-visible .plan-stairs-badge{fill:#2a4c9e;stroke:#2a4c9e}.plan-stairs:hover .plan-stairs-title,.plan-stairs:focus-visible .plan-stairs-title{fill:#fff}.plan-stairs:hover .plan-stairs-icon,.plan-stairs:focus-visible .plan-stairs-icon{stroke:#fff}
