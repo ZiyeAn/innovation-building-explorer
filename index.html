@@ -6,15 +6,16 @@
   <meta name="description" content="Explore innovation as a building. An interactive visual metaphor map, from shared foundations to experimentation and growth.">
   <title>Innovation by Design — A visual metaphor map</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="assets/fonts.css"><link rel="stylesheet" href="assets/style.css?v=compact-navigation-1">
-  <script defer src="assets/gsap.min.js"></script><script type="module" src="assets/app.js?v=compact-navigation-1"></script>
+  <link rel="stylesheet" href="assets/fonts.css"><link rel="stylesheet" href="assets/style.css?v=presentation-1">
+  <script defer src="assets/gsap.min.js"></script><script type="module" src="assets/app.js?v=presentation-1"></script>
 </head>
 <body>
  <header class="masthead">
   <a class="brand" href="#" aria-label="Innovation by Design, overview"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="m4 12 13-8 13 8-13 8zM4 19l13 8 13-8M4 26l13 8 13-8"/></svg><span>Innovation by Design<span class="brand-sub">A visual metaphor map</span></span></a>
   <div class="header-note">An architecture for innovation.<br>A different way to see the journey.</div>
-  <div class="header-actions"><button id="tour-button" class="tour-button"><span class="play-icon">▷</span> Take a guided tour</button><button id="motion-toggle" class="icon-button" title="Pause animations" aria-label="Pause animations" aria-pressed="false">Ⅱ</button></div>
+  <div class="header-actions"><button id="present-button" class="tour-button" aria-pressed="false">⛶ Present</button><button id="tour-button" class="tour-button"><span class="play-icon">▷</span> Take a guided tour</button><button id="motion-toggle" class="icon-button" title="Pause animations" aria-label="Pause animations" aria-pressed="false">Ⅱ</button></div>
  </header>
+ <div class="presentation-toolbar" id="presentation-toolbar" hidden><strong>Innovation by Design</strong><label>Floor <select id="presentation-floor" aria-label="Presentation floor"><option value="all">Whole building</option><option value="Foundation">Foundation</option><option value="LL">LL · Readiness</option><option value="L1">L1 · Sense & Choose</option><option value="L2">L2 · Connect & Build</option><option value="L3">L3 · Experiment & Grow</option></select></label><button id="exit-present">⤢ Exit presentation <span>Esc</span></button></div>
  <div class="app-shell">
   <aside class="navigation" aria-label="Map navigation">
    <button class="overview-button active" id="overview-button"><span>↗</span> The whole building <span class="button-arrow">↗</span></button>
