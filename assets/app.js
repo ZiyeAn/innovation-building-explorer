@@ -97,7 +97,7 @@ function dPins(g,f){
 }
 function floorBase(f){return BASE[f]*state.spread+(f==='Foundation'?1180:1080-ORDER.indexOf(f)*70)*(1-state.spread);}
 function updateProjection(){
- for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-link',g).setAttribute('transform',`translate(${-145*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
+ for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
   $$('.roadblock-pin',g).forEach(pin=>{let [x,y]=project(...pin._coords);if(p){x-=260*p;}pin.setAttribute('transform',`translate(${x} ${y})`);});
  }
  drawConnections();drawBuildingShell();exteriorAppearance();
@@ -151,22 +151,21 @@ function connectionLabel(parent,visual,x,y,title,label,activate,anchorX,anchorY)
  g.addEventListener('click',()=>{if(!suppressClick)activate();});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
 }
 function drawPlanStairs(parent){
- const available=STAIR.map((stair,index)=>({stair,index})).filter(({stair})=>stair.from===state.floor||stair.to===state.floor);
- if(!available.length)return;
- const base=floorBase(state.floor),strip=svg('g',{class:'plan-stair-strip',transform:`translate(-240 ${base})`},parent);
- svg('rect',{x:0,y:0,width:250,height:420,rx:5,fill:'#e4ddd3',stroke:'#aaa194','stroke-width':2},strip);
- svg('text',{x:18,y:34,fill:'#69665e','font-family':'DM Sans','font-size':24},strip).textContent='Stairs';
- available.forEach(({stair,index},slot)=>{
-  const outgoing=stair.from===state.floor,y=available.length===1?225:135+slot*170;
-  const g=svg('g',{class:'plan-stairs',role:'button',tabindex:0,'aria-label':`Staircase ${stair.from} to ${stair.to}`,transform:`translate(12 ${y})`},strip);
-  svg('rect',{x:0,y:-56,width:226,height:112,rx:4,class:'plan-stairs-badge'},g);
+ const index=STAIR.findIndex(stair=>stair.from===state.floor);
+ const routeIndex=index>=0?index:STAIR.findIndex(stair=>stair.to===state.floor);
+ if(routeIndex<0)return;
+ const stair=STAIR[routeIndex],base=floorBase(state.floor);
+ const strip=svg('g',{class:'plan-stair-strip',transform:`translate(-12 ${base})`},parent);
+ for(let direction=0;direction<2;direction++){
+  const label=direction?`${stair.from} → ${stair.to}`:`${stair.to} → ${stair.from}`,y=direction?225:0;
+  const g=svg('g',{class:'plan-stairs narrow-stairs',role:'button',tabindex:0,'aria-label':`Stairs ${label}`,transform:`translate(0 ${y})`},strip);
+  svg('rect',{x:0,y:0,width:76,height:194,class:'plan-stairs-badge'},g);
   const icon=svg('g',{'aria-hidden':'true',class:'plan-stairs-icon'},g);
-  svg('rect',{x:12,y:-32,width:38,height:64,fill:'none'},icon);
-  for(let i=1;i<10;i++)svg('path',{d:`M12 ${-32+i*6.4}h38`,fill:'none'},icon);
-  svg('path',{d:outgoing?'M31 24v-48m-6 7 6-7 6 7':'M31 -24v48m-6-7 6 7 6-7',fill:'none','stroke-width':2.5},icon);
-  svg('text',{x:57,y:9,class:'plan-stairs-title'},g).textContent=`${stair.from} → ${stair.to} ↗`;
-  const activate=()=>{if(!suppressClick)showStaircase(index);};g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
- });
+  for(let i=1;i<16;i++)svg('path',{d:`M2 ${i*12}h72`,fill:'none'},icon);
+  svg('path',{d:direction?'M38 170V24m-8 10 8-10 8 10':'M38 24v146m-8-10 8 10 8-10',fill:'none','stroke-width':2},icon);
+  svg('text',{transform:'translate(38 97) rotate(-90)','text-anchor':'middle','dominant-baseline':'middle',class:'narrow-stairs-label'},g).textContent=label;
+  const activate=()=>{if(!suppressClick)showStaircase(routeIndex,direction===0);};g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+ }
 }
 function drawConnections(){
  const con=$('#building-connections');if(!con)return;con.innerHTML='';
@@ -190,7 +189,7 @@ function buildWorld(){
 function setCamera(target,animate=true){
  gsap.killTweensOf(camera);gsap.to(camera,{...target,duration:animate?duration(.85):0,ease,onUpdate:()=>map.setAttribute('viewBox',`${camera.x} ${camera.y} ${camera.w} ${camera.h}`)});
 }
-function homeCamera(){if(state.floor==='all')return {x:-200,y:state.spread? -60:500,w:1440,h:state.spread?2180:1300};const b=floorBase(state.floor);return state.view==='plan'?{x:-300,y:b-45,w:1480,h:650}:{x:-210,y:b-210,w:1440,h:860};}
+function homeCamera(){if(state.floor==='all')return {x:-200,y:state.spread? -60:500,w:1440,h:state.spread?2180:1300};const b=floorBase(state.floor);return state.view==='plan'?{x:-150,y:b-45,w:1330,h:650}:{x:-210,y:b-210,w:1440,h:860};}
 function fitCamera(){setExterior(false);state.zoom=1;cameraHome=homeCamera();setCamera(cameraHome);updateZoom();}
 function updateZoom(){$('#zoom-label').textContent=Math.round(state.zoom*100)+'%';}
 function zoomBy(factor){
@@ -255,7 +254,7 @@ function runRoute(index){
  setCamera({x:-210,y:floorBase(r.end)-170,w:1440,h:floorBase(r.start)-floorBase(r.end)+800});
 }
 const STAIR=[{from:'LL',to:'L1',title:'Build Readiness',steps:['Identify barriers','Design enablers','Assign owners & resources','Establish routines']},{from:'L1',to:'L2',title:'Develop Strategic Focus',steps:['Scan signals','Interpret drivers','Frame markets','Understand users','Choose where to play']},{from:'L2',to:'L3',title:'Build Collective Commitment',steps:['Map actors','Choose our role','Build partnerships','Align initiatives','Confirm capabilities & ownership']}];
-function showStaircase(i){const s=STAIR[i];renderInspector(`<button class="back-button" data-floor="${s.from}">← Back to ${s.from}</button><div class="inspector-kicker">${s.from} → ${s.to} / Staircase</div><h2>${s.title}</h2><p class="lead">Build the capability to move to the next floor.</p><ol class="intro-steps">${s.steps.map((t,j)=>`<li><span class="step-no">${String(j+1).padStart(2,'0')}</span>${t}</li>`).join('')}</ol><div class="intro-rule"></div><button class="primary-button" data-floor="${s.to}">Continue to ${s.to}<span>↑</span></button>`,true);}
+function showStaircase(i,reverse=false){const original=STAIR[i],s=reverse?{...original,from:original.to,to:original.from}:original;renderInspector(`<button class="back-button" data-floor="${s.from}">← Back to ${s.from}</button><div class="inspector-kicker">${s.from} → ${s.to} / Staircase</div><h2>${s.title}</h2><p class="lead">${reverse?'Return to the previous floor to revisit these capabilities.':'Build the capability to move to the next floor.'}</p><ol class="intro-steps">${s.steps.map((t,j)=>`<li><span class="step-no">${String(j+1).padStart(2,'0')}</span>${t}</li>`).join('')}</ol><div class="intro-rule"></div><button class="primary-button" data-floor="${s.to}">${reverse?'Return':'Continue'} to ${s.to}<span>${reverse?'↓':'↑'}</span></button>`,true);}
 function updateHash(){const hash=state.room?`room=${encodeURIComponent(state.room)}`:state.floor==='all'?'':`floor=${state.floor}`;history.replaceState(null,'',location.pathname+(hash?'#'+hash:''));}
 function tourStep(i){state.tour=i;selectFloor(ORDER[i]);$('#tour-bar').hidden=false;$('#tour-count').textContent=`${String(i+1).padStart(2,'0')} / 05`;$('#tour-label').textContent=NAMES[ORDER[i]];$('#tour-prev').disabled=i===0;$('#tour-next').textContent=i===4?'Finish tour ✓':'Next floor →';}
 function endTour(){state.tour=-1;$('#tour-bar').hidden=true;}
