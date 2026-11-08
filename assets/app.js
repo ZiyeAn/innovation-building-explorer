@@ -340,7 +340,7 @@ function updateHash(){const hash=state.room?`room=${encodeURIComponent(state.roo
 function tourStep(i){state.tour=i;selectFloor(ORDER[i]);$('#tour-bar').hidden=false;$('#tour-count').textContent=`${String(i+1).padStart(2,'0')} / 05`;$('#tour-label').textContent=NAMES[ORDER[i]];$('#tour-prev').disabled=i===0;$('#tour-next').textContent=i===4?'Finish tour ✓':'Next floor →';}
 function endTour(){state.tour=-1;$('#tour-bar').hidden=true;}
 function syncFullscreenButton(){
- const active=Boolean(document.fullscreenElement),button=$('#present-button');button.setAttribute('aria-pressed',String(active));button.textContent=active?'⛶ Exit fullscreen':'⛶ Present';
+ const active=Boolean(document.fullscreenElement),button=$('#present-button');button.setAttribute('aria-pressed',String(active));$('.fullscreen-label',button).textContent=active?'Exit full screen':'Full screen';button.setAttribute('aria-label',active?'Exit full screen':'Enter full screen');button.title=active?'Exit full screen':'Enter full screen';$('.fullscreen-icon path',button).setAttribute('d',active?'M3 8h5V3M21 8h-5V3M8 21v-5H3M16 21v-5h5':'M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5');
 }
 async function toggleFullscreen(){
  try{
