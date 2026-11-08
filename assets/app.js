@@ -119,19 +119,27 @@ function drawBuildingShell(){
   svg('polygon',{points:[p,q,down(q,38),down(p,38)].map(p=>p.join(',')).join(' '),fill:'#b0a590','fill-opacity':.28,stroke:'#9b9485','stroke-opacity':.5,'stroke-width':1.5},soil);
  }
  for(const corner of [base[1],base[2],base[3]])svg('path',{d:`M${corner[0]} ${corner[1]+45}v170`,stroke:'#9b9485','stroke-width':2,'stroke-dasharray':'7 7','stroke-opacity':.6},g);
- polygon([D,E,base[2],base[3]],'#eee9df',.94);
- polygon([E,B,base[1],base[2]],'#dedfd8',.92);
- // Continuous roof parapet and plinth, in the same thin architectural linework.
- polygon([A,B,E,D],'#f0ece3',.95);
- polygon([D,E,down(E,32),down(D,32)],'#e6e5dc',.95);
- polygon([E,B,down(B,32),down(E,32)],'#e6e5dc',.95);
- line([[340,top+35],[840,top+264],[551,top+397],[48,top+165],[340,top+35]],.6,2);
+ const unfinished=height/4;
+ polygon([down(D,unfinished),down(E,unfinished),base[2],base[3]],'#eee9df',.94);
+ polygon([down(E,unfinished),down(B,unfinished),base[1],base[2]],'#dedfd8',.92);
+ // L3 remains an open construction frame rather than a completed roof.
+ polygon([A,B,E,D].map(p=>down(p,unfinished)),'#e6e5dc',.42);
+ line([A,B,E,D,A],.55,2);
+ for(const [start,end]of [[D,E],[E,B]]){
+  const point=(t,y)=>[start[0]+(end[0]-start[0])*t,start[1]+(end[1]-start[1])*t+y];
+  for(let col=0;col<=3;col++)line([point(col/3,0),point(col/3,unfinished)],.7,2.4);
+  for(const y of [unfinished*.32,unfinished*.66,unfinished])line([point(0,y),point(1,y)],.5,1.8);
+  for(let col=0;col<3;col++){
+   line([point(col/3,0),point((col+1)/3,unfinished)],.38,1.5);
+   line([point(col/3,unfinished),point((col+1)/3,0)],.38,1.5);
+  }
+ }
  polygon([down(D,height-36),down(E,height-36),down(E,height+8),down(D,height+8)],'#e9e6dd',.95);
  polygon([down(E,height-36),down(B,height-36),down(B,height+8),down(E,height+8)],'#dce0d8',.95);
  for(const [start,end]of [[D,E],[E,B]]){
   const point=(t,dy)=>[start[0]+(end[0]-start[0])*t,start[1]+(end[1]-start[1])*t+dy];
   for(let row=0;row<4;row++)for(let col=0;col<4;col++){
-   if(row===3&&start===D&&col===3)continue;
+   if(row===0||(row===3&&start===D&&col===3)||(start===E&&col===1))continue;
    const l=(col+.28)/4,r=(col+.68)/4,y=70+row*(height-100)/4,h=(height-100)*.48/4;
    polygon([point(l,y),point(r,y),point(r,y+h),point(l,y+h)],'#b5c4c5',.18);
    for(const fraction of [.33,.66])line([point(l,y+h*fraction),point(r,y+h*fraction)],.62,1.8);
@@ -140,16 +148,19 @@ function drawBuildingShell(){
  const door=(t,dy)=>[D[0]+(E[0]-D[0])*t,D[1]+(E[1]-D[1])*t+dy];
  polygon([door(.80,height-155),door(.96,height-155),door(.96,height+8),door(.80,height+8)],'#c0cdd0',.4);
  line([door(.88,height-155),door(.88,height+8)],.8,2);
- // Small rooftop service enclosure, rather than a fully detailed 3D object.
- const roofBase=[410,top+150];
- polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+115,roofBase[1]+53],[roofBase[0],roofBase[1]]],'#e9e9df',.95);
- polygon([[roofBase[0]+115,roofBase[1]-47],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+170,roofBase[1]+26],[roofBase[0]+115,roofBase[1]+53]],'#d9dfda',.95);
- polygon([[roofBase[0],roofBase[1]-100],[roofBase[0]+55,roofBase[1]-127],[roofBase[0]+170,roofBase[1]-74],[roofBase[0]+115,roofBase[1]-47]],'#f2eee5',.95);
  // External spaces become open balconies on the right-hand facade.
  const balconyPoint=(t,dy)=>[E[0]+(B[0]-E[0])*t,E[1]+(B[1]-E[1])*t+dy];
  const out=p=>[p[0]+185,p[1]+85];
  for(let floor=0;floor<4;floor++){
   const level=(floor+1)*height/4-38,p=balconyPoint(.06,level),q=balconyPoint(.94,level),r=out(q),t=out(p);
+  const doorLeft=balconyPoint(.30,level),doorRight=balconyPoint(.54,level),doorHeight=154;
+  // Each balcony has a visible doorway; L3 shows only its unfinished frame.
+  polygon([down(doorLeft,-doorHeight),down(doorRight,-doorHeight),doorRight,doorLeft],'#c0cdd0',floor===0?.08:.25);
+  if(floor>0){
+   const opened=[doorRight[0]+42,doorRight[1]+19];
+   polygon([down(doorRight,-doorHeight),down(opened,-doorHeight),opened,doorRight],'#e9eee9',.55);
+   line([down(doorLeft,-doorHeight),doorLeft],.8,2.5);
+  }
   polygon([p,q,r,t],'#f6bb02',.17);
   polygon([t,r,down(r,13),down(t,13)],'#d8d1b6',.7);
   // Low, open railings preserve the lightweight architectural drawing.
