@@ -156,8 +156,9 @@ function drawPlanStairs(parent){
  if(routeIndex<0)return;
  const stair=STAIR[routeIndex],base=floorBase(state.floor);
  const strip=svg('g',{class:'plan-stair-strip',transform:`translate(-12 ${base})`},parent);
- for(let direction=0;direction<2;direction++){
-  const label=direction?`${stair.from} → ${stair.to}`:`${stair.to} → ${stair.from}`,y=direction?225:0;
+ const directions=state.floor==='LL'||state.floor==='L3'?[1]:[0,1];
+ for(const direction of directions){
+  const label=direction?`${stair.from} → ${stair.to}`:`${stair.to} → ${stair.from}`,y=directions.length===1?112:(direction?225:0);
   const g=svg('g',{class:'plan-stairs narrow-stairs',role:'button',tabindex:0,'aria-label':`Stairs ${label}`,transform:`translate(0 ${y})`},strip);
   svg('rect',{x:0,y:0,width:76,height:194,class:'plan-stairs-badge'},g);
   const icon=svg('g',{'aria-hidden':'true',class:'plan-stairs-icon'},g);
