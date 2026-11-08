@@ -6,7 +6,7 @@ const CAT = {internal:'Internal',external:'External',reflection:'Reflection',roa
 const ORDER = ['Foundation','LL','L1','L2','L3'];
 const NAMES = {Foundation:'Shared foundations',LL:'Organizational Readiness',L1:'Sense & Choose',L2:'Connect & Build',L3:'Experiment & Grow'};
 const BASE = {Foundation:1520,LL:1180,L1:840,L2:500,L3:160};
-const state = {floor:'all',room:null,category:null,view:'iso',spread:1,projection:0,motion:!matchMedia('(prefers-reduced-motion: reduce)').matches,zoom:1,tour:-1};
+const state = {floor:'all',room:null,category:null,view:'iso',spread:1,projection:0,motion:!matchMedia('(prefers-reduced-motion: reduce)').matches,zoom:1,tour:-1,exterior:0};
 const camera = {x:-200,y:-60,w:1440,h:2180};
 let cameraHome={...camera}, data={}, rooms=[], dragging=null, suppressClick=false, routeRun=null;
 const world=$('#world'), map=$('#map'), canvas=$('#map-canvas');
@@ -100,7 +100,44 @@ function updateProjection(){
  for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
   $$('.roadblock-pin',g).forEach(pin=>{let [x,y]=project(...pin._coords);if(p){x-=260*p;}pin.setAttribute('transform',`translate(${x} ${y})`);});
  }
- drawConnections();
+ drawConnections();drawBuildingShell();exteriorAppearance();
+}
+let exteriorVisible=false,exteriorFloor=null;
+function drawBuildingShell(){
+ let g=$('#building-shell');if(!g)g=svg('g',{id:'building-shell','pointer-events':'none','aria-hidden':'true'},world);
+ g.innerHTML='';world.appendChild(g);
+ const top=floorBase('L3')-100,bottom=floorBase('LL')+280;
+ const A=[340,top],B=[903,top+260],D=[-12,top+162],E=[551,top+422],height=bottom-(top+422);
+ const polygon=(points,fill,opacity)=>svg('polygon',{points:points.map(p=>p.join(',')).join(' '),fill,'fill-opacity':opacity,stroke:'#777e78','stroke-width':2},g);
+ polygon([D,E,[E[0],E[1]+height],[D[0],D[1]+height]],'#c2c6bf',.72);
+ polygon([E,B,[B[0],B[1]+height],[E[0],E[1]+height]],'#9caaa5',.55);
+ polygon([A,B,E,D],'#e8e2da',.7);
+ for(const [start,end]of [[D,E],[E,B]]){
+  for(let row=0;row<4;row++){
+   const y=height*(row+.16)/4,h=height*.52/4;
+   for(let col=0;col<5;col++){
+    const l=(col+.15)/5,r=(col+.85)/5;
+    const point=(t,dy)=>[start[0]+(end[0]-start[0])*t,start[1]+(end[1]-start[1])*t+y+dy];
+    polygon([point(l,0),point(r,0),point(r,h),point(l,h)],'#80959b',.24);
+   }
+  }
+ }
+ const doorY=E[1]+height-115;
+ polygon([[E[0]-60,doorY-28],[E[0],doorY],[E[0],doorY+115],[E[0]-60,doorY+87]],'#7f9499',.3);
+ svg('path',{d:`M${E[0]-30} ${doorY-14}v115`,stroke:'#777e78','stroke-width':2},g);
+ g.style.opacity=state.exterior;
+}
+function exteriorAppearance(){
+ const amount=state.exterior;
+ for(const f of ORDER){if(f==='Foundation')continue;const g=$('#floor-'+f);$('.floor-plane',g).style.opacity=1-amount*.94;$('.architectural',g).style.opacity=(1-state.projection)*(1-amount);$('.roadblock-pins',g).style.opacity=1-amount;}
+ $('#building-shell')?.style.setProperty('opacity',amount);
+ $('#building-connections').style.visibility=exteriorVisible?'hidden':'';
+}
+function setExterior(on){
+ if(exteriorVisible===on)return;exteriorVisible=on;document.body.classList.toggle('exterior-view',on);$('#hover-tip').hidden=true;
+ $$('.room,.roadblock-pin,.floor-link').forEach(el=>{el.setAttribute('tabindex',on?'-1':(state.floor==='all'||el.closest('.floor-region')?.dataset.floor===state.floor?'0':'-1'));});
+ gsap.to(state,{exterior:on?1:0,duration:duration(.65),ease:'power2.inOut',overwrite:'auto',onUpdate:exteriorAppearance});
+ $('#map-instruction').textContent=on?'Zoom in past 80% to explore inside':'Hover to discover · Click to explore · Drag to move';
 }
 function connectionLabel(parent,visual,x,y,title,label,activate,anchorX,anchorY){
  const g=svg('g',{class:'connection-label',role:'button',tabindex:0,'aria-label':label,transform:`translate(${x} ${y})`},parent);
@@ -150,10 +187,19 @@ function setCamera(target,animate=true){
  gsap.killTweensOf(camera);gsap.to(camera,{...target,duration:animate?duration(.85):0,ease,onUpdate:()=>map.setAttribute('viewBox',`${camera.x} ${camera.y} ${camera.w} ${camera.h}`)});
 }
 function homeCamera(){if(state.floor==='all')return {x:-200,y:state.spread? -60:500,w:1440,h:state.spread?2180:1300};const b=floorBase(state.floor);return state.view==='plan'?{x:-20,y:b-45,w:1180,h:650}:{x:-210,y:b-210,w:1440,h:860};}
-function fitCamera(){state.zoom=1;cameraHome=homeCamera();setCamera(cameraHome);updateZoom();}
+function fitCamera(){setExterior(false);state.zoom=1;cameraHome=homeCamera();setCamera(cameraHome);updateZoom();}
 function updateZoom(){$('#zoom-label').textContent=Math.round(state.zoom*100)+'%';}
-let zoomReturnUntil=0;
-function zoomBy(factor){if(performance.now()<zoomReturnUntil)return;if(state.floor!=='all'&&factor<1&&state.zoom*factor<.72){zoomReturnUntil=performance.now()+650;endTour();selectFloor('all');return;}state.zoom=Math.min(3.8,Math.max(.6,state.zoom*factor));const w=cameraHome.w/state.zoom,h=cameraHome.h/state.zoom;setCamera({x:camera.x+camera.w/2-w/2,y:camera.y+camera.h/2-h/2,w,h});updateZoom();}
+function zoomBy(factor){
+ const next=Math.min(3.8,Math.max(.6,state.zoom*factor));
+ if(next<=.8&&!exteriorVisible){
+  exteriorFloor=state.floor==='all'?null:state.floor;endTour();selectFloor('all');
+ }else if(next>.8&&exteriorVisible){
+  const returnFloor=exteriorFloor;exteriorFloor=null;setExterior(false);if(returnFloor)selectFloor(returnFloor);
+ }
+ state.zoom=next;setExterior(next<=.8&&state.floor==='all');
+ const w=cameraHome.w/state.zoom,h=cameraHome.h/state.zoom;
+ setCamera({x:cameraHome.x+cameraHome.w/2-w/2,y:cameraHome.y+cameraHome.h/2-h/2,w,h});updateZoom();
+}
 function setView(view){if(view==='plan'&&state.floor==='all')selectFloor('LL',false);state.view=view;gsap.to($('#building-connections'),{opacity:state.floor==='all'||view==='plan'?1:0,duration:duration(.3),overwrite:true});$('#iso-button').classList.toggle('active',view==='iso');$('#plan-button').classList.toggle('active',view==='plan');$('#iso-button').setAttribute('aria-pressed',view==='iso');$('#plan-button').setAttribute('aria-pressed',view==='plan');gsap.to(state,{projection:view==='plan'?1:0,duration:duration(.9),ease,overwrite:'auto',onUpdate:updateProjection});fitCamera();}
 function selectFloor(f,animate=true){
  stopRoute();state.floor=f;state.room=null;state.category=null;$('#hover-tip').hidden=true;
