@@ -134,6 +134,38 @@ function drawBuildingShell(){
    line([point(col/3,unfinished),point((col+1)/3,0)],.38,1.5);
   }
  }
+ // An incomplete slab, exposed columns and rebar make the future floor legible.
+ const deck=[down(D,75),[350,top+403],[700,top+240],down(A,75)];
+ polygon(deck,'#e5e3d8',.48);
+ line(deck.map(p=>down(p,14)),.65,2);
+ const columnPoints=[D,[D[0]+(E[0]-D[0])*.33,D[1]+(E[1]-D[1])*.33],[D[0]+(E[0]-D[0])*.66,D[1]+(E[1]-D[1])*.66],E,[E[0]+(B[0]-E[0])*.5,E[1]+(B[1]-E[1])*.5],B,A];
+ for(const foot of columnPoints){
+  const head=down(foot,-48);
+  polygon([[head[0]-7,head[1]-4],[head[0]+7,head[1]+3],[foot[0]+7,foot[1]+78],[foot[0]-7,foot[1]+71]],'#dce0da',.5);
+  for(const offset of [-5,0,5])line([[head[0]+offset,head[1]-25],[head[0]+offset,head[1]+3]],.75,1.5);
+ }
+ for(let n=0;n<15;n++){
+  const u=(n+.4)/15,edge=[D[0]+(E[0]-D[0])*.65*u,D[1]+(E[1]-D[1])*.65*u+75];
+  line([edge,down(edge,-23)],.65,1.4);
+ }
+ // A small lattice tower crane stands beside the construction, not over the rooms.
+ const craneX=-145,craneTop=top+20,craneBottom=base[3][1]+25,towerWidth=34;
+ line([[craneX,craneBottom],[craneX,craneTop],[craneX+towerWidth,craneTop],[craneX+towerWidth,craneBottom]],.68,2);
+ for(let y=craneTop;y<craneBottom;y+=85){
+  const end=Math.min(y+85,craneBottom);line([[craneX,y],[craneX+towerWidth,end],[craneX,end],[craneX+towerWidth,y]],.5,1.4);
+ }
+ polygon([[craneX-22,craneBottom],[craneX+62,craneBottom+39],[craneX+89,craneBottom+25],[craneX+5,craneBottom-14]],'#c4c4b6',.55);
+ const boomStart=[craneX-65,craneTop+28],boomEnd=[655,top-35];
+ line([boomStart,boomEnd,down(boomEnd,24),down(boomStart,24),boomStart],.75,2);
+ for(let n=0;n<15;n++){
+  const p=[boomStart[0]+(boomEnd[0]-boomStart[0])*n/15,boomStart[1]+(boomEnd[1]-boomStart[1])*n/15],q=[boomStart[0]+(boomEnd[0]-boomStart[0])*(n+1)/15,boomStart[1]+(boomEnd[1]-boomStart[1])*(n+1)/15];
+  line([p,down(q,24),q,down(p,24)],.55,1.3);
+ }
+ polygon([[craneX+34,craneTop+24],[craneX+83,craneTop+47],[craneX+83,craneTop+91],[craneX+34,craneTop+68]],'#bfcdca',.32);
+ const hookX=430,hookY=boomStart[1]+(boomEnd[1]-boomStart[1])*(hookX-boomStart[0])/(boomEnd[0]-boomStart[0]);
+ line([[hookX,hookY+24],[hookX,top+115]],.7,1.6);
+ svg('path',{d:`M${hookX} ${top+115}q-10 17 3 17q13 0 10-12`,fill:'none',stroke:ink,'stroke-opacity':.7,'stroke-width':2},g);
+ for(let beam=0;beam<3;beam++)line([[hookX-50,top+145+beam*7],[hookX+52,top+192+beam*7]],.7,3);
  polygon([down(D,height-36),down(E,height-36),down(E,height+8),down(D,height+8)],'#e9e6dd',.95);
  polygon([down(E,height-36),down(B,height-36),down(B,height+8),down(E,height+8)],'#dce0d8',.95);
  for(const [start,end]of [[D,E],[E,B]]){
