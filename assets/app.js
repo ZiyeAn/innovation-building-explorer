@@ -106,7 +106,7 @@ let exteriorVisible=false,exteriorFloor=null;
 function drawBuildingShell(){
  let g=$('#building-shell');if(!g)g=svg('g',{id:'building-shell','pointer-events':'none','aria-hidden':'true'},world);
  g.innerHTML='';world.appendChild(g);
- const top=floorBase('L3')-100,height=floorBase('LL')-top+60,ink='#bd1b1f';
+ const top=floorBase('L3')-100,height=floorBase('LL')-top+60,ink='#2a4c9e';
  const A=[340,top],B=[903,top+260],D=[-12,top+162],E=[551,top+422];
  const down=(p,n)=>[p[0],p[1]+n],base=[A,B,E,D].map(p=>down(p,height));
  const line=(points,opacity=.8,width=2.5)=>svg('polyline',{points:points.map(p=>p.join(',')).join(' '),fill:'none',stroke:ink,'stroke-opacity':opacity,'stroke-width':width},g);
