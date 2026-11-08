@@ -37,7 +37,7 @@ function roomShape(parent,r,x,y,w,h,small=false){
  const color=C[r.cat];svg('rect',{x,y,width:w,height:h,fill:color,class:'room-fill',opacity:r.floor==='L3'&&r.cat!=='roadblocks'?.66:1},g);
  svg('rect',{x:x+3,y:y+3,width:w-6,height:h-6,class:'room-outline'},g);
  const copy=svg('g',{class:'room-copy',fill:r.cat==='internal'?'#f5f1ea':'#33312e'},g);
- if(small){drawText(copy,`${r.code}  ${r.title}`,x+12,y+30,w-22,25,2);}else{svg('text',{x:x+20,y:y+31,class:'room-number'},copy).textContent=r.code;drawText(copy,r.title,x+20,y+72,w-40,r.floor==='L3'?31:36,3);}
+ if(small){drawText(copy,`${r.code}  ${r.title}`,x+12,y+34,w-24,32,2);}else{svg('text',{x:x+20,y:y+31,class:'room-number'},copy).textContent=r.code;drawText(copy,r.title,x+20,y+72,w-40,r.floor==='L3'?44:48,3);}
  g.addEventListener('pointerenter',e=>hoverRoom(r,e));g.addEventListener('pointermove',e=>moveTip(e));g.addEventListener('pointerleave',()=>unhoverRoom(r));g.addEventListener('focus',()=>highlightRoom(r));g.addEventListener('blur',()=>unhoverRoom(r));g.addEventListener('click',()=>{if(!suppressClick)selectRoom(r.id);});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRoom(r.id);}});
 }
 function blueprint(parent){
@@ -60,7 +60,7 @@ function drawFloor(f){
   let boxes=f==='L3'?[[5,5,345,278],[368,5,345,278],[731,5,347,278],[5,400,345,235],[368,400,345,235],[731,400,347,235]]:f==='L1'?[[5,5,527,278],[5,400,527,235],[666,5,412,278],[666,400,412,235]]:f==='LL'?[[666,5,412,278],[5,5,527,278],[5,400,527,235]]:[[5,5,527,278],[666,5,412,278],[5,400,1073,235]];
   d.internal.forEach((r,i)=>roomShape(plane,r,...boxes[i]));
   d.external.forEach((r,i)=>{const two=d.external.length===2,rect=[1083,two?i*354:i*233,388,two?322:210];roomShape(plane,r,...rect);terrace(plane,rect);});
-  d.reflection.forEach((r,i)=>{let rect;if(f==='LL'&&i===2)rect=[666,400,412,235];else if(i===0)rect=[26,f==='L3'?201:213,f==='L3'?306:480,64];else rect=[f==='LL'?26:680,574,f==='LL'?480:384,58];roomShape(plane,r,...rect,true);});
+  d.reflection.forEach((r,i)=>{let rect;if(f==='LL'&&i===2)rect=[666,400,412,235];else if(i===0)rect=[26,f==='L3'?185:193,f==='L3'?306:480,88];else rect=[f==='LL'?26:680,548,f==='LL'?480:384,88];roomShape(plane,r,...rect,true);});
   svg('text',{x:35,y:344,fill:'#69665e','font-family':'DM Sans','font-size':16},plane).textContent=f==='LL'?'SHARED DIRECTION → READINESS':f==='L1'?'SENSE → INTERPRET → CHOOSE':f==='L2'?'DIRECTION → ROLE → PARTNERS → ALIGNMENT':'TEST → LEARN → DECIDE → NEXT CYCLE';
   svg('text',{x:35,y:658,fill:'#69665e','font-family':'DM Sans','font-size':14},plane).textContent=f==='LL'?'ARRIVE / BUILD READINESS':f==='L3'?'SCALE · ITERATE · STOP · REALLOCATE':`NEXT FLOOR → ${f==='L1'?'L2':'L3'}`;
  }
