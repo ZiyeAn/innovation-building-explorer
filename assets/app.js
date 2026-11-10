@@ -105,7 +105,7 @@ function drawFoundationVolume(g){
  const volume=$('.foundation-volume',g);if(!volume)return;volume.innerHTML='';
  const p=state.projection,q=(x,y,z)=>{const a=project(x,y,z);return[a[0]-260*p,a[1]];};
  const face=(points,fill)=>svg('polygon',{points:points.map(v=>q(...v).join(',')).join(' '),fill,stroke:'#8f8778','stroke-width':1.8,'stroke-linejoin':'round'},volume);
- const [x,y,w,h]=[-70,-20,1480,790],z=-135,bottom=-210;
+ const [x,y,w,h]=[-70,-20,1480,790],z=-42,bottom=-72;
  face([[x,y,z],[x+w,y,z],[x+w,y+h,z],[x,y+h,z]],'#c9c0af');
  face([[x,y+h,z],[x+w,y+h,z],[x+w,y+h,bottom],[x,y+h,bottom]],'#afa28e');
  face([[x+w,y,z],[x+w,y+h,z],[x+w,y+h,bottom],[x+w,y,bottom]],'#988d7c');
