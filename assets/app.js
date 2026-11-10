@@ -110,6 +110,7 @@ function drawArchitecture(g,f){
  if(f!=='L3')for(const [lo,hi]of [[0,112],[177,410],[480,676]]){path3(p,[[1083,lo,0],[1083,hi,0],[1083,hi,100],[1083,lo,100],[1083,lo,0]],{fill:'#f5f1ea','fill-opacity':.22,'stroke-opacity':.35});}
  if(f==='L3'){
   drawRoofBarrier(p,project(-12,420),project(-12,150));
+  drawRoofBarrier(p,project(600,-12),project(792,-12));
   for(const x of [0,350,700,1083])path3(p,[[x,-35,0],[x,-35,245]],{'stroke-opacity':.47});
   for(const z of [85,165,245])path3(p,[[0,-35,z],[1083,-35,z]],{'stroke-opacity':.38});
   for(const [a,b]of [[0,350],[350,700],[700,1083]]){path3(p,[[a,-35,0],[b,-35,245]],{'stroke-opacity':.35});path3(p,[[a,-35,245],[b,-35,0]],{'stroke-opacity':.35});}
@@ -184,6 +185,8 @@ function drawBuildingShell(){
  }
  const roofEdge=t=>[D[0]+(A[0]-D[0])*t,D[1]+(A[1]-D[1])*t+75];
  drawRoofBarrier(g,roofEdge(.19),roofEdge(.57));
+ const rearEdge=t=>[A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t+75];
+ drawRoofBarrier(g,rearEdge(.55),rearEdge(.73));
  // A small lattice tower crane stands beside the construction, not over the rooms.
  const craneX=-145,craneTop=top+20,craneBottom=base[3][1]+25,towerWidth=34;
  line([[craneX,craneBottom],[craneX,craneTop],[craneX+towerWidth,craneTop],[craneX+towerWidth,craneBottom]],.68,2);
