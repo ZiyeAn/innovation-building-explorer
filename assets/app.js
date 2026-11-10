@@ -96,10 +96,15 @@ function dPins(g,f){
  const group=svg('g',{class:'roadblock-pins'},g);data[f].groups.roadblocks.forEach((r,i)=>{const coords=[[50,120],[890,170],[650,610],[80,550]][i];r.pin=coords;const pin=svg('g',{class:'roadblock-pin',role:'button',tabindex:0,'aria-label':`${r.title}, roadblock`,'data-room':r.id},group);pin._coords=coords;
   svg('rect',{x:-30,y:-65,width:60,height:69,fill:'transparent'},pin);
   svg('image',{class:'roadblock-cone',href:'assets/section1-roadblock.svg',x:-29,y:-62,width:58,height:65,'pointer-events':'none'},pin);
+  const marker=svg('g',{class:'plan-roadblock-marker','aria-hidden':'true'},pin);
+  svg('line',{x1:0,y1:0,x2:0,y2:-55,stroke:'#77776d','stroke-width':2},marker);
+  svg('circle',{cx:0,cy:-65,r:18},marker);
+  svg('text',{x:0,y:-58},marker).textContent='!';
   pin.addEventListener('click',()=>{if(!suppressClick)selectRoom(r.id);});pin.addEventListener('pointerenter',e=>hoverRoom(r,e));pin.addEventListener('pointermove',e=>moveTip(e));pin.addEventListener('pointerleave',()=>unhoverRoom(r));pin.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRoom(r.id);}});});
 }
 function floorBase(f){return BASE[f]*state.spread+(f==='Foundation'?1180:1080-ORDER.indexOf(f)*70)*(1-state.spread);}
 function updateProjection(){
+ world.classList.toggle('plan-markers',state.view==='plan');
  for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
   $$('.roadblock-pin',g).forEach(pin=>{let [x,y]=project(...pin._coords);if(p){x-=260*p;}pin.setAttribute('transform',`translate(${x} ${y})`);});
  }
