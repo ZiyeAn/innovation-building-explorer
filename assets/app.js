@@ -76,6 +76,11 @@ function drawFloor(f){
   d.internal.forEach((r,i)=>roomShape(plane,r,...boxes[i]));
   d.external.forEach((r,i)=>{const two=d.external.length===2,rect=[1083,two?i*354:i*233,388,two?322:210];roomShape(plane,r,...rect);terrace(plane,rect);});
   d.reflection.forEach((r,i)=>{let rect;if(f==='LL'&&i===2)rect=[666,400,412,235];else if(i===0)rect=[26,f==='L3'?185:193,f==='L3'?306:480,88];else rect=[f==='LL'?26:680,548,f==='LL'?480:384,88];roomShape(plane,r,...rect,true);});
+  if(f==='LL'){
+   const link=svg('g',{'pointer-events':'none','aria-hidden':'true'},plane);
+   svg('path',{d:'M532 510H666',fill:'none',stroke:'#6e8972','stroke-width':4,'stroke-linecap':'round'},link);
+   for(const x of [532,666])svg('circle',{cx:x,cy:510,r:5,fill:'#6e8972'},link);
+  }
   svg('text',{x:35,y:344,fill:'#69665e','font-family':'DM Sans','font-size':16},plane).textContent=f==='LL'?'SHARED DIRECTION → READINESS':f==='L1'?'SENSE → INTERPRET → CHOOSE':f==='L2'?'DIRECTION → ROLE → PARTNERS → ALIGNMENT':'TEST → LEARN → DECIDE → NEXT CYCLE';
   svg('text',{x:35,y:658,fill:'#69665e','font-family':'DM Sans','font-size':14},plane).textContent=f==='LL'?'ARRIVE / BUILD READINESS':f==='L3'?'SCALE · ITERATE · STOP · REALLOCATE':`NEXT FLOOR → ${f==='L1'?'L2':'L3'}`;
  }
@@ -477,7 +482,7 @@ function initializeControls(){
  document.addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='Escape'&&document.fullscreenElement)return;if(e.key==='Escape'){endTour();if(state.room){state.room=null;clearSelection();renderInspector(floorHTML(state.floor));updateHash();}else{$('#inspector').classList.remove('open');}}else if(e.key==='+'||e.key==='=')zoomBy(1.2);else if(e.key==='-')zoomBy(.8);else if(e.key==='0')fitCamera();});
 }
 async function init(){
- try{const response=await fetch('assets/source-map.json');if(!response.ok)throw Error('Map content unavailable.');const source=await response.json();parseSource(source);buildWorld();initializeControls();renderInspector(introHTML());const initial=new URLSearchParams(location.hash.slice(1));if(initial.get('room')&&roomById(initial.get('room')))selectRoom(initial.get('room'));else if(ORDER.includes(initial.get('floor')))selectFloor(initial.get('floor'));else{fitCamera();if(state.motion){gsap.from('.floor-region',{opacity:0,y:'+=70',duration:1.1,stagger:.11,ease:'power3.out'});gsap.from('.nav-intro,.floor-nav-button',{opacity:0,x:-12,duration:.6,stagger:.07,ease:'power2.out'});}}
+ try{const response=await fetch('assets/source-map.json?v=ll-reflection-1');if(!response.ok)throw Error('Map content unavailable.');const source=await response.json();parseSource(source);buildWorld();initializeControls();renderInspector(introHTML());const initial=new URLSearchParams(location.hash.slice(1));if(initial.get('room')&&roomById(initial.get('room')))selectRoom(initial.get('room'));else if(ORDER.includes(initial.get('floor')))selectFloor(initial.get('floor'));else{fitCamera();if(state.motion){gsap.from('.floor-region',{opacity:0,y:'+=70',duration:1.1,stagger:.11,ease:'power3.out'});gsap.from('.nav-intro,.floor-nav-button',{opacity:0,x:-12,duration:.6,stagger:.07,ease:'power2.out'});}}
  window.innovationMap={state,data,rooms,selectFloor,selectRoom,setView,showShortcuts,runRoute,fitCamera};
  }catch(error){console.error(error);$('#inspector-content').innerHTML='<div class="inspector-content"><h2>The map could not load.</h2><p>Please refresh the page to try again.</p></div>';}
 }
