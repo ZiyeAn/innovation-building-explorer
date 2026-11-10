@@ -91,6 +91,16 @@ function drawFloor(f){
 }
 function project(x,y,z=0){const t=state.projection;return [340+(.52+(.62-.52)*t)*x+(-.52*(1-t))*y,(.24*(1-t))*x+(.24+(.62-.24)*t)*y-z*(1-t)];}
 function path3(p,points,attrs={}){return svg('path',{d:points.map((pt,i)=>(i?'L':'M')+project(...pt).join(' ')).join(' '),fill:'none',stroke:'#727c78','stroke-width':2,...attrs},p);}
+function drawRoofBarrier(parent,left,right,scale=1){
+ const span=160;
+ const g=svg('g',{class:'roof-safety-barrier','pointer-events':'none','aria-hidden':'true',
+  transform:`matrix(${(right[0]-left[0])/span} ${(right[1]-left[1])/span} 0 ${scale} ${left[0]} ${left[1]})`},parent);
+ const frame='#78816c';
+ svg('rect',{x:3,y:-62,width:154,height:10,fill:'#cec5a6',stroke:frame,'stroke-width':2},g);
+ svg('rect',{x:3,y:-45,width:154,height:25,fill:'#dfbd66',stroke:frame,'stroke-width':2},g);
+ for(let x=13;x<142;x+=30)svg('path',{d:`M${x} -45h12l10 25h-12z`,fill:'#75775e'},g);
+ for(const x of [1,157])svg('rect',{x,y:-64,width:4,height:64,rx:1.5,fill:frame},g);
+}
 function drawArchitecture(g,f){
  const p=g._decor;p.innerHTML='';if(f==='Foundation')return;
  // Windows and dividing walls remain deliberately light, as in the Figma map.
@@ -99,6 +109,7 @@ function drawArchitecture(g,f){
  path3(p,[[0,18,35],[0,92,35],[0,92,96],[0,18,96],[0,18,35]],{'stroke-opacity':.5});
  if(f!=='L3')for(const [lo,hi]of [[0,112],[177,410],[480,676]]){path3(p,[[1083,lo,0],[1083,hi,0],[1083,hi,100],[1083,lo,100],[1083,lo,0]],{fill:'#f5f1ea','fill-opacity':.22,'stroke-opacity':.35});}
  if(f==='L3'){
+  drawRoofBarrier(p,project(-12,420),project(-12,150));
   for(const x of [0,350,700,1083])path3(p,[[x,-35,0],[x,-35,245]],{'stroke-opacity':.47});
   for(const z of [85,165,245])path3(p,[[0,-35,z],[1083,-35,z]],{'stroke-opacity':.38});
   for(const [a,b]of [[0,350],[350,700],[700,1083]]){path3(p,[[a,-35,0],[b,-35,245]],{'stroke-opacity':.35});path3(p,[[a,-35,245],[b,-35,0]],{'stroke-opacity':.35});}
@@ -171,6 +182,8 @@ function drawBuildingShell(){
   const u=(n+.4)/15,edge=[D[0]+(E[0]-D[0])*.65*u,D[1]+(E[1]-D[1])*.65*u+75];
   line([edge,down(edge,-23)],.65,1.4);
  }
+ const roofEdge=t=>[D[0]+(A[0]-D[0])*t,D[1]+(A[1]-D[1])*t+75];
+ drawRoofBarrier(g,roofEdge(.19),roofEdge(.57));
  // A small lattice tower crane stands beside the construction, not over the rooms.
  const craneX=-145,craneTop=top+20,craneBottom=base[3][1]+25,towerWidth=34;
  line([[craneX,craneBottom],[craneX,craneTop],[craneX+towerWidth,craneTop],[craneX+towerWidth,craneBottom]],.68,2);
