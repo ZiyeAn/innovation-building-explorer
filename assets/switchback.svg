@@ -1,86 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="1773 1023 312 822" fill="none" preserveAspectRatio="none"><path d="M1971 1437.05L2036 1477.05L2023.5 1491.1L1958.5 1451.1L1971 1437.05Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1958.5 1451.1L2023.5 1491.1V1503.1L1958.5 1463.1V1451.1Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1971 1437.05V1375.05" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M2036 1477.05V1415.05" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1958.5 1463.1L2023.5 1503.1L2011 1517.15L1946 1477.15L1958.5 1463.1Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1946 1477.15L2011 1517.15V1529.15L1946 1489.15V1477.15Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1946 1489.15L2011 1529.15L1998.5 1543.19L1933.5 1503.19L1946 1489.15Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1933.5 1503.19L1998.5 1543.19V1555.19L1933.5 1515.19V1503.19Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1933.5 1515.19L1998.5 1555.19L1986 1569.24L1921 1529.24L1933.5 1515.19Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1921 1529.24L1986 1569.24V1581.24L1921 1541.24V1529.24Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1933.5 1515.19V1453.19" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1998.5 1555.19V1493.19" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1921 1541.24L1986 1581.24L1973.5 1595.29L1908.5 1555.29L1921 1541.24Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1908.5 1555.29L1973.5 1595.29V1607.29L1908.5 1567.29V1555.29Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1908.5 1567.29L1973.5 1607.29L1961 1621.34L1896 1581.34L1908.5 1567.29Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1896 1581.34L1961 1621.34V1633.34L1896 1593.34V1581.34Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1896 1593.34L1961 1633.34L1948.5 1647.39L1883.5 1607.39L1896 1593.34Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1883.5 1607.39L1948.5 1647.39V1659.39L1883.5 1619.39V1607.39Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1896 1593.34V1531.34" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1961 1633.34V1571.34" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1883.5 1619.39L1948.5 1659.39L1936 1673.44L1871 1633.44L1883.5 1619.39Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1871 1633.44L1936 1673.44V1685.44L1871 1645.44V1633.44Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1871 1645.44L1936 1685.44L1923.5 1699.49L1858.5 1659.49L1871 1645.44Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1858.5 1659.49L1923.5 1699.49V1711.49L1858.5 1671.49V1659.49Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1858.5 1671.49L1923.5 1711.49L1911 1725.54L1846 1685.54L1858.5 1671.49Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1846 1685.54L1911 1725.54V1737.54L1846 1697.54V1685.54Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1858.5 1671.49V1609.49" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1923.5 1711.49V1649.49" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1846 1697.54L1911 1737.54L1898.5 1751.58L1833.5 1711.58L1846 1697.54Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1833.5 1711.58L1898.5 1751.58V1763.58L1833.5 1723.58V1711.58Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1833.5 1723.58L1898.5 1763.58L1886 1777.63L1821 1737.63L1833.5 1723.58Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1821 1737.63L1886 1777.63V1789.63L1821 1749.63V1737.63Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1821 1749.63L1886 1789.63L1873.5 1803.68L1808.5 1763.68L1821 1749.63Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1808.5 1763.68L1873.5 1803.68V1815.68L1808.5 1775.68V1763.68Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1821 1749.63V1687.63" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1886 1789.63V1727.63" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1808.5 1775.68L1873.5 1815.68L1861 1829.73L1796 1789.73L1808.5 1775.68Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1796 1789.73L1861 1829.73V1841.73L1796 1801.73V1789.73Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1971 1375.05L1796 1739.73" stroke="#73836F" stroke-width="4" stroke-linecap="round" />
-<path d="M2036 1415.05L1861 1779.73" stroke="#73836F" stroke-width="4" stroke-linecap="round" />
-<path d="M1936 1413.05L2041 1477.05L2081 1452.05L1976 1388.05L1936 1413.05Z" fill="#D5D1C1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M2041 1477.05L2081 1452.05V1467.05L2041 1492.05V1477.05Z" fill="#A7A491" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1796 1088.11L1861 1128.11L1873.5 1141.03L1808.5 1101.03L1796 1088.11Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1808.5 1101.03L1873.5 1141.03V1153.03L1808.5 1113.03V1101.03Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1796 1088.11V1026.11" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1861 1128.11V1066.11" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1808.5 1113.03L1873.5 1153.03L1886 1165.96L1821 1125.96L1808.5 1113.03Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1821 1125.96L1886 1165.96V1177.96L1821 1137.96V1125.96Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1821 1137.96L1886 1177.96L1898.5 1190.88L1833.5 1150.88L1821 1137.96Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1833.5 1150.88L1898.5 1190.88V1202.88L1833.5 1162.88V1150.88Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1833.5 1162.88L1898.5 1202.88L1911 1215.81L1846 1175.81L1833.5 1162.88Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1846 1175.81L1911 1215.81V1227.81L1846 1187.81V1175.81Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1833.5 1162.88V1100.88" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1898.5 1202.88V1140.88" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1846 1187.81L1911 1227.81L1923.5 1240.73L1858.5 1200.73L1846 1187.81Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1858.5 1200.73L1923.5 1240.73V1252.73L1858.5 1212.73V1200.73Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1858.5 1212.73L1923.5 1252.73L1936 1265.65L1871 1225.65L1858.5 1212.73Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1871 1225.65L1936 1265.65V1277.65L1871 1237.65V1225.65Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1871 1237.65L1936 1277.65L1948.5 1290.58L1883.5 1250.58L1871 1237.65Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1883.5 1250.58L1948.5 1290.58V1302.58L1883.5 1262.58V1250.58Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1871 1237.65V1175.65" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1936 1277.65V1215.65" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1883.5 1262.58L1948.5 1302.58L1961 1315.5L1896 1275.5L1883.5 1262.58Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1896 1275.5L1961 1315.5V1327.5L1896 1287.5V1275.5Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1896 1287.5L1961 1327.5L1973.5 1340.43L1908.5 1300.43L1896 1287.5Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1908.5 1300.43L1973.5 1340.43V1352.43L1908.5 1312.43V1300.43Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1908.5 1312.43L1973.5 1352.43L1986 1365.35L1921 1325.35L1908.5 1312.43Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1921 1325.35L1986 1365.35V1377.35L1921 1337.35V1325.35Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1908.5 1312.43V1250.43" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1973.5 1352.43V1290.43" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1921 1337.35L1986 1377.35L1998.5 1390.28L1933.5 1350.28L1921 1337.35Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1933.5 1350.28L1998.5 1390.28V1402.28L1933.5 1362.28V1350.28Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1933.5 1362.28L1998.5 1402.28L2011 1415.2L1946 1375.2L1933.5 1362.28Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1946 1375.2L2011 1415.2V1427.2L1946 1387.2V1375.2Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1946 1387.2L2011 1427.2L2023.5 1440.12L1958.5 1400.12L1946 1387.2Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1958.5 1400.12L2023.5 1440.12V1452.12L1958.5 1412.12V1400.12Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1946 1387.2V1325.2" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M2011 1427.2V1365.2" stroke="#859180" stroke-width="2" stroke-linecap="round" />
-<path d="M1958.5 1412.12L2023.5 1452.12L2036 1465.05L1971 1425.05L1958.5 1412.12Z" fill="#E3DFD1" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1971 1425.05L2036 1465.05V1477.05L1971 1437.05V1425.05Z" fill="#B2AE9E" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M1796 1026.11L1971 1375.05" stroke="#73836F" stroke-width="4" stroke-linecap="round" />
-<path d="M1861 1066.11L2036 1415.05" stroke="#73836F" stroke-width="4" stroke-linecap="round" />
-<path d="M1776 1076.11L1861 1128.11L1890 1110.11L1805 1058.11L1776 1076.11Z" fill="#DDD9CB" stroke="#928F82" stroke-width="1.5" stroke-linejoin="round" />
-<path d="M2081 1452.05V1390.05" stroke="#73836F" stroke-width="3" stroke-linecap="round" />
-<path d="M2036 1415.05L2081 1390.05" stroke="#73836F" stroke-width="4" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1773 1023 312 822" fill="none" preserveAspectRatio="none"><path d="M1971 1437.05L2036 1477.05L2023.5 1491.1L1958.5 1451.1L1971 1437.05Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1958.5 1451.1L2023.5 1491.1V1503.1L1958.5 1463.1V1451.1Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1971 1437.05V1375.05" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M2036 1477.05V1415.05" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1958.5 1463.1L2023.5 1503.1L2011 1517.15L1946 1477.15L1958.5 1463.1Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1946 1477.15L2011 1517.15V1529.15L1946 1489.15V1477.15Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1946 1489.15L2011 1529.15L1998.5 1543.19L1933.5 1503.19L1946 1489.15Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1933.5 1503.19L1998.5 1543.19V1555.19L1933.5 1515.19V1503.19Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1933.5 1515.19L1998.5 1555.19L1986 1569.24L1921 1529.24L1933.5 1515.19Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1921 1529.24L1986 1569.24V1581.24L1921 1541.24V1529.24Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1933.5 1515.19V1453.19" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1998.5 1555.19V1493.19" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1921 1541.24L1986 1581.24L1973.5 1595.29L1908.5 1555.29L1921 1541.24Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1908.5 1555.29L1973.5 1595.29V1607.29L1908.5 1567.29V1555.29Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1908.5 1567.29L1973.5 1607.29L1961 1621.34L1896 1581.34L1908.5 1567.29Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1896 1581.34L1961 1621.34V1633.34L1896 1593.34V1581.34Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1896 1593.34L1961 1633.34L1948.5 1647.39L1883.5 1607.39L1896 1593.34Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1883.5 1607.39L1948.5 1647.39V1659.39L1883.5 1619.39V1607.39Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1896 1593.34V1531.34" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1961 1633.34V1571.34" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1883.5 1619.39L1948.5 1659.39L1936 1673.44L1871 1633.44L1883.5 1619.39Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1871 1633.44L1936 1673.44V1685.44L1871 1645.44V1633.44Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1871 1645.44L1936 1685.44L1923.5 1699.49L1858.5 1659.49L1871 1645.44Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1858.5 1659.49L1923.5 1699.49V1711.49L1858.5 1671.49V1659.49Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1858.5 1671.49L1923.5 1711.49L1911 1725.54L1846 1685.54L1858.5 1671.49Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1846 1685.54L1911 1725.54V1737.54L1846 1697.54V1685.54Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1858.5 1671.49V1609.49" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1923.5 1711.49V1649.49" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1846 1697.54L1911 1737.54L1898.5 1751.58L1833.5 1711.58L1846 1697.54Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1833.5 1711.58L1898.5 1751.58V1763.58L1833.5 1723.58V1711.58Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1833.5 1723.58L1898.5 1763.58L1886 1777.63L1821 1737.63L1833.5 1723.58Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1821 1737.63L1886 1777.63V1789.63L1821 1749.63V1737.63Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1821 1749.63L1886 1789.63L1873.5 1803.68L1808.5 1763.68L1821 1749.63Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1808.5 1763.68L1873.5 1803.68V1815.68L1808.5 1775.68V1763.68Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1821 1749.63V1687.63" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1886 1789.63V1727.63" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1808.5 1775.68L1873.5 1815.68L1861 1829.73L1796 1789.73L1808.5 1775.68Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1796 1789.73L1861 1829.73V1841.73L1796 1801.73V1789.73Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1971 1375.05L1796 1739.73" stroke="#a39a8b" stroke-width="4" stroke-linecap="round" />
+<path d="M2036 1415.05L1861 1779.73" stroke="#a39a8b" stroke-width="4" stroke-linecap="round" />
+<path d="M1936 1413.05L2041 1477.05L2081 1452.05L1976 1388.05L1936 1413.05Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M2041 1477.05L2081 1452.05V1467.05L2041 1492.05V1477.05Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1796 1088.11L1861 1128.11L1873.5 1141.03L1808.5 1101.03L1796 1088.11Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1808.5 1101.03L1873.5 1141.03V1153.03L1808.5 1113.03V1101.03Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1796 1088.11V1026.11" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1861 1128.11V1066.11" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1808.5 1113.03L1873.5 1153.03L1886 1165.96L1821 1125.96L1808.5 1113.03Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1821 1125.96L1886 1165.96V1177.96L1821 1137.96V1125.96Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1821 1137.96L1886 1177.96L1898.5 1190.88L1833.5 1150.88L1821 1137.96Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1833.5 1150.88L1898.5 1190.88V1202.88L1833.5 1162.88V1150.88Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1833.5 1162.88L1898.5 1202.88L1911 1215.81L1846 1175.81L1833.5 1162.88Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1846 1175.81L1911 1215.81V1227.81L1846 1187.81V1175.81Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1833.5 1162.88V1100.88" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1898.5 1202.88V1140.88" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1846 1187.81L1911 1227.81L1923.5 1240.73L1858.5 1200.73L1846 1187.81Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1858.5 1200.73L1923.5 1240.73V1252.73L1858.5 1212.73V1200.73Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1858.5 1212.73L1923.5 1252.73L1936 1265.65L1871 1225.65L1858.5 1212.73Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1871 1225.65L1936 1265.65V1277.65L1871 1237.65V1225.65Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1871 1237.65L1936 1277.65L1948.5 1290.58L1883.5 1250.58L1871 1237.65Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1883.5 1250.58L1948.5 1290.58V1302.58L1883.5 1262.58V1250.58Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1871 1237.65V1175.65" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1936 1277.65V1215.65" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1883.5 1262.58L1948.5 1302.58L1961 1315.5L1896 1275.5L1883.5 1262.58Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1896 1275.5L1961 1315.5V1327.5L1896 1287.5V1275.5Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1896 1287.5L1961 1327.5L1973.5 1340.43L1908.5 1300.43L1896 1287.5Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1908.5 1300.43L1973.5 1340.43V1352.43L1908.5 1312.43V1300.43Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1908.5 1312.43L1973.5 1352.43L1986 1365.35L1921 1325.35L1908.5 1312.43Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1921 1325.35L1986 1365.35V1377.35L1921 1337.35V1325.35Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1908.5 1312.43V1250.43" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1973.5 1352.43V1290.43" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1921 1337.35L1986 1377.35L1998.5 1390.28L1933.5 1350.28L1921 1337.35Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1933.5 1350.28L1998.5 1390.28V1402.28L1933.5 1362.28V1350.28Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1933.5 1362.28L1998.5 1402.28L2011 1415.2L1946 1375.2L1933.5 1362.28Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1946 1375.2L2011 1415.2V1427.2L1946 1387.2V1375.2Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1946 1387.2L2011 1427.2L2023.5 1440.12L1958.5 1400.12L1946 1387.2Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1958.5 1400.12L2023.5 1440.12V1452.12L1958.5 1412.12V1400.12Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1946 1387.2V1325.2" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M2011 1427.2V1365.2" stroke="#a39a8b" stroke-width="2" stroke-linecap="round" />
+<path d="M1958.5 1412.12L2023.5 1452.12L2036 1465.05L1971 1425.05L1958.5 1412.12Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1971 1425.05L2036 1465.05V1477.05L1971 1437.05V1425.05Z" fill="#a39a8b" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M1796 1026.11L1971 1375.05" stroke="#a39a8b" stroke-width="4" stroke-linecap="round" />
+<path d="M1861 1066.11L2036 1415.05" stroke="#a39a8b" stroke-width="4" stroke-linecap="round" />
+<path d="M1776 1076.11L1861 1128.11L1890 1110.11L1805 1058.11L1776 1076.11Z" fill="#f5f1ea" stroke="#a39a8b" stroke-width="1.5" stroke-linejoin="round" />
+<path d="M2081 1452.05V1390.05" stroke="#a39a8b" stroke-width="3" stroke-linecap="round" />
+<path d="M2036 1415.05L2081 1390.05" stroke="#a39a8b" stroke-width="4" stroke-linecap="round" />
 </svg>

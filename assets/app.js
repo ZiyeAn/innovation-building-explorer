@@ -212,7 +212,7 @@ function exteriorAppearance(){
  const amount=state.exterior;
  for(const f of ORDER){if(f==='Foundation')continue;const g=$('#floor-'+f);$('.floor-plane',g).style.opacity=1-amount;$('.architectural',g).style.opacity=(1-state.projection)*(1-amount);$('.roadblock-pins',g).style.opacity=1-amount;}
  $('#building-shell')?.style.setProperty('opacity',amount);
- $('#building-connections').style.visibility=exteriorVisible?'hidden':'';
+ for(const layer of $$('#building-connections,#lift-layer'))layer.style.visibility=exteriorVisible?'hidden':'';
 }
 function setExterior(on){
  if(exteriorVisible===on)return;exteriorVisible=on;document.body.classList.toggle('exterior-view',on);$('#hover-tip').hidden=true;
@@ -251,27 +251,28 @@ function drawPlanStairs(parent){
 }
 function drawConnections(){
  const con=$('#building-connections');if(!con)return;con.innerHTML='';
+ const rear=$('#lift-layer');rear.replaceChildren();
  world.appendChild(con);
  if(state.view==='plan'){drawPlanStairs(con);return;}
  const liftX=680, top=floorBase('L3')+170, bottom=floorBase('LL')+170;
- const lift=svg('g',{class:'lift-visual',role:'button',tabindex:0,'aria-label':'Explore express lift shortcuts'},con);
+ const lift=svg('g',{class:'lift-visual',role:'button',tabindex:0,'aria-label':'Explore express lift shortcuts'},rear);
  const roof=top-78, foot=bottom+8;
- svg('path',{d:`M680 ${roof}l43 25V${foot+25}l-43 -25Z`,fill:'#bdc9c2',stroke:'#7b8881'},lift);
- svg('path',{d:`M723 ${roof+25}l20 -12V${foot+13}l-20 12Z`,fill:'#a3b3ac',stroke:'#7b8881'},lift);
- svg('path',{d:`M680 ${roof}l20 -12 43 25 -20 12Z`,fill:'#d8dfd7',stroke:'#7b8881'},lift);
- for(const x of [685,718,740])svg('line',{x1:x,x2:x,y1:roof+25,y2:foot+12,stroke:'#7d8d84','stroke-width':2},lift);
+ svg('path',{d:`M680 ${roof}l43 25V${foot+25}l-43 -25Z`,fill:'#82969f','fill-opacity':.13,stroke:'#727c78','stroke-opacity':.45},lift);
+ svg('path',{d:`M723 ${roof+25}l20 -12V${foot+13}l-20 12Z`,fill:'#82969f','fill-opacity':.21,stroke:'#727c78','stroke-opacity':.45},lift);
+ svg('path',{d:`M680 ${roof}l20 -12 43 25 -20 12Z`,fill:'#82969f','fill-opacity':.2,stroke:'#727c78','stroke-opacity':.45},lift);
+ for(const x of [685,718,740])svg('line',{x1:x,x2:x,y1:roof+25,y2:foot+12,stroke:'#727c78','stroke-opacity':.55,'stroke-width':2},lift);
  for(const floor of ORDER.slice(1)){
   const y=floorBase(floor)+170;
-  svg('image',{href:'assets/lift-landing.svg',x:liftX-2,y:y-61,width:67,height:82,preserveAspectRatio:'none'},lift);
+  svg('image',{href:'assets/lift-landing.svg?v=original-palette',x:liftX-2,y:y-61,width:67,height:82,preserveAspectRatio:'none'},lift);
  }
- svg('image',{id:'lift-cabin',href:'assets/lift-car.svg',x:liftX+5,y:bottom-74,width:49,height:83,preserveAspectRatio:'none'},lift);
+ svg('image',{id:'lift-cabin',href:'assets/lift-car.svg?v=original-palette',x:liftX+5,y:bottom-74,width:49,height:83,preserveAspectRatio:'none'},lift);
  connectionLabel(con,lift,900,(top+bottom)/2,'↑↓ Shortcuts ↗','Explore express lift shortcuts',showShortcuts,722,(top+bottom)/2);
  bindConnection(lift,showShortcuts);
  STAIR.forEach((route,index)=>{
   const upper=floorBase(route.to)+150, lower=floorBase(route.from)+150;
   const label=`Staircase ${route.from} to ${route.to}`;
   const flight=svg('g',{class:'stairs-visual',role:'button',tabindex:0,'aria-label':label},con);
-  svg('image',{href:'assets/switchback.svg',x:66,y:upper-8,width:90,height:lower-upper+16,preserveAspectRatio:'none'},flight);
+  svg('image',{href:'assets/switchback.svg?v=original-palette',x:66,y:upper-8,width:90,height:lower-upper+16,preserveAspectRatio:'none'},flight);
   const open=()=>showStaircase(index);
   connectionLabel(con,flight,-260,(upper+lower)/2,`${route.from} → ${route.to} ↗`,label,open,109,(upper+lower)/2);
   bindConnection(flight,open);
@@ -285,6 +286,7 @@ function bindConnection(node,open){
  });
 }
 function buildWorld(){
+ svg('g',{id:'lift-layer'},world);
  svg('g',{id:'building-connections'},world);
  for(const f of ORDER)drawFloor(f);
  updateProjection();
@@ -306,7 +308,7 @@ function zoomBy(factor){
  const w=cameraHome.w/state.zoom,h=cameraHome.h/state.zoom;
  setCamera({x:cameraHome.x+cameraHome.w/2-w/2,y:cameraHome.y+cameraHome.h/2-h/2,w,h});updateZoom();
 }
-function setView(view){if(view==='plan'&&state.floor==='all')selectFloor('LL',false);state.view=view;gsap.to($('#building-connections'),{opacity:state.floor==='all'||view==='plan'?1:0,duration:duration(.3),overwrite:true});$('#iso-button').classList.toggle('active',view==='iso');$('#plan-button').classList.toggle('active',view==='plan');$('#iso-button').setAttribute('aria-pressed',view==='iso');$('#plan-button').setAttribute('aria-pressed',view==='plan');gsap.to(state,{projection:view==='plan'?1:0,duration:duration(.9),ease,overwrite:'auto',onUpdate:updateProjection});fitCamera();}
+function setView(view){if(view==='plan'&&state.floor==='all')selectFloor('LL',false);state.view=view;gsap.to($$('#building-connections,#lift-layer'),{opacity:state.floor==='all'||view==='plan'?1:0,duration:duration(.3),overwrite:true});$('#iso-button').classList.toggle('active',view==='iso');$('#plan-button').classList.toggle('active',view==='plan');$('#iso-button').setAttribute('aria-pressed',view==='iso');$('#plan-button').setAttribute('aria-pressed',view==='plan');gsap.to(state,{projection:view==='plan'?1:0,duration:duration(.9),ease,overwrite:'auto',onUpdate:updateProjection});fitCamera();}
 function selectFloor(f,animate=true){
  stopRoute();state.floor=f;state.room=null;state.category=null;$('#hover-tip').hidden=true;
  setView(f==='all'?'iso':'plan');
@@ -314,7 +316,7 @@ function selectFloor(f,animate=true){
  $('#map-instruction').textContent=f==='all'?'Hover to discover · Click to explore · Drag to move':'Pinch to zoom · Zoom out to return to the building';
  $('#overview-button').classList.toggle('active',f==='all');$$('.floor-nav-button').forEach(b=>{b.classList.toggle('active',b.dataset.floor===f);b.setAttribute('aria-current',b.dataset.floor===f?'true':'false');});
  for(const level of ORDER){const g=$('#floor-'+level),active=f==='all'||f===level;g.classList.toggle('inactive',!active);g.setAttribute('aria-hidden',!active);$$('[tabindex]',g).forEach(el=>el.setAttribute('tabindex',active?'0':'-1'));gsap.to(g,{opacity:active?1:0,duration:animate?duration(.55):0,overwrite:true});}
- gsap.to($('#building-connections'),{opacity:f==='all'||state.view==='plan'?1:0,duration:duration(.4),overwrite:true});updateFilters();fitCamera();$('#breadcrumb').innerHTML=f==='all'?'The whole building <span>/</span> Explore freely':`${safe(f)} <span>/</span> ${safe(NAMES[f])}`;
+ gsap.to($$('#building-connections,#lift-layer'),{opacity:f==='all'||state.view==='plan'?1:0,duration:duration(.4),overwrite:true});updateFilters();fitCamera();$('#breadcrumb').innerHTML=f==='all'?'The whole building <span>/</span> Explore freely':`${safe(f)} <span>/</span> ${safe(NAMES[f])}`;
  $('#mobile-current').textContent=f==='all'?'The whole building':`${f==='Foundation'?'F':f} · ${NAMES[f]}`;
  clearSelection();renderInspector(f==='all'?introHTML():floorHTML(f));$('#floor-guide-button').hidden=f==='all';updateHash();
 }
@@ -347,9 +349,9 @@ const ROUTES=[{start:'LL',end:'L2',title:'Established Strategic Focus',condition
 function showShortcuts(){stopRoute();selectFloor('all');renderInspector(`<div class="inspector-kicker">↑↓ Express lift</div><h2>Take what you<br>already know.<br>Go further.</h2><p class="lead">The stairs build capabilities step by step. The lift connects distant floors when those capabilities are already in place.</p>${ROUTES.map((r,i)=>`<button class="route-button" data-route="${i}"><strong>${r.start} → ${r.end} <span style="display:inline;font-size:21px">↗</span></strong><span>${r.title}</span></button>`).join('')}<div class="intro-rule"></div><h3>Entry conditions / all routes</h3><p class="lead">Shared vision & clear innovation strategy.</p><p class="inspector-footnote">If a capability gap appears, return to the relevant floor.</p>`,true);}
 function stopRoute(){if(routeRun){routeRun.kill();routeRun=null;}const car=$('#lift-cabin');if(car){gsap.killTweensOf(car);car.setAttribute('y',floorBase('LL')+96);}$('#route-overlay')?.remove();}
 function runRoute(index){
- stopRoute();if(state.view==='plan')setView('iso');const r=ROUTES[index];state.floor='all';state.room=null;gsap.to($('#building-connections'),{opacity:1,duration:duration(.3)});updateFilters();for(const f of ORDER){const g=$('#floor-'+f),active=[r.start,r.end].includes(f);g.classList.remove('inactive');gsap.to(g,{opacity:active?1:.12,duration:duration(.4),overwrite:true});}
+ stopRoute();if(state.view==='plan')setView('iso');const r=ROUTES[index];state.floor='all';state.room=null;gsap.to($$('#building-connections,#lift-layer'),{opacity:1,duration:duration(.3)});updateFilters();for(const f of ORDER){const g=$('#floor-'+f),active=[r.start,r.end].includes(f);g.classList.remove('inactive');gsap.to(g,{opacity:active?1:.12,duration:duration(.4),overwrite:true});}
  renderInspector(`<button class="back-button" data-action="shortcuts">← All express routes</button><div class="inspector-kicker">Express route / ${index+1}</div><h2>${r.start} → ${r.end}</h2><p class="lead">${r.title}</p><div class="route-progress"><span></span></div><h3>Ready to board?</h3><ul class="detail-list">${r.conditions.map(c=>`<li>${c}</li>`).join('')}</ul><button class="primary-button" data-floor="${r.end}">Step into ${r.end} <span>↗</span></button><p class="inspector-footnote">Direct access uses existing capabilities. It does not remove the need to test assumptions.</p>`,true);
- const o=svg('g',{id:'route-overlay','pointer-events':'none'},world),top=floorBase(r.end)+170,bot=floorBase(r.start)+170;
+ const o=svg('g',{id:'route-overlay','pointer-events':'none'},$('#lift-layer')),top=floorBase(r.end)+170,bot=floorBase(r.start)+170;
  svg('path',{d:`M740 ${bot}V${top}`,stroke:'#2a4c9e','stroke-width':4,fill:'none','stroke-dasharray':'10 8'},o);
  const cabin=$('#lift-cabin');
  cabin.setAttribute('y',bot-74);
