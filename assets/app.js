@@ -47,11 +47,8 @@ function blueprint(parent){
  svg('path',{d:'M50 340H600V640H1050',stroke:'#747167','stroke-width':2,fill:'none','stroke-dasharray':'6 6',opacity:.5},parent);
 }
 function terrace(parent,rect){
- const [x,y,w,h]=rect;parent=svg('g',{class:'plan-planter','pointer-events':'none'},parent);svg('path',{d:`M${x+w-100} ${y+h-25}h70v-27h-70z`,fill:'#c8bfae',stroke:'#77786f','stroke-width':1.5,opacity:.8},parent);
+ const [x,y,w,h]=rect;svg('path',{d:`M${x+w-100} ${y+h-25}h70v-27h-70z`,fill:'#c8bfae',stroke:'#77786f','stroke-width':1.5,opacity:.8},parent);
  for(let i=0;i<3;i++){svg('circle',{cx:x+w-86+i*22,cy:y+h-48,r:13,fill:'#9db99f',stroke:'#7d8d79','stroke-width':1,opacity:.8},parent);}
-}
-function balconyPlanter(parent,x,y,scale=1){
- return svg('image',{class:'balcony-planter',href:'assets/balcony-planter.svg',x:x-36*scale,y:y-59*scale,width:72*scale,height:64*scale,'pointer-events':'none','aria-hidden':'true'},parent);
 }
 function drawFloor(f){
  const g=svg('g',{class:'floor-region','data-floor':f,id:'floor-'+f},world),plane=svg('g',{class:'floor-plane'},g);
@@ -77,7 +74,7 @@ function drawFloor(f){
   blueprint(plane);const d=data[f].groups;
   let boxes=f==='L3'?[[5,5,345,278],[368,5,345,278],[731,5,347,278],[5,400,345,235],[368,400,345,235],[731,400,347,235]]:f==='L1'?[[5,5,527,278],[5,400,527,235],[666,5,412,278],[666,400,412,235]]:f==='LL'?[[666,5,412,278],[5,5,527,278],[5,400,527,235]]:[[5,5,527,278],[666,5,412,278],[5,400,1073,235]];
   d.internal.forEach((r,i)=>roomShape(plane,r,...boxes[i]));
-  d.external.forEach((r,i)=>{const two=d.external.length===2,rect=[1083,two?i*354:i*233,388,two?322:210];roomShape(plane,r,...rect);terrace(plane,rect);(g._planters??=[]).push([rect[0]+rect[2]-65,rect[1]+rect[3]-38]);});
+  d.external.forEach((r,i)=>{const two=d.external.length===2,rect=[1083,two?i*354:i*233,388,two?322:210];roomShape(plane,r,...rect);terrace(plane,rect);});
   d.reflection.forEach((r,i)=>{let rect;if(f==='LL'&&i===2)rect=[666,400,412,235];else if(i===0)rect=[26,f==='L3'?185:193,f==='L3'?306:480,88];else rect=[f==='LL'?26:680,548,f==='LL'?480:384,88];roomShape(plane,r,...rect,true);});
   svg('text',{x:35,y:344,fill:'#69665e','font-family':'DM Sans','font-size':16},plane).textContent=f==='LL'?'SHARED DIRECTION → READINESS':f==='L1'?'SENSE → INTERPRET → CHOOSE':f==='L2'?'DIRECTION → ROLE → PARTNERS → ALIGNMENT':'TEST → LEARN → DECIDE → NEXT CYCLE';
   svg('text',{x:35,y:658,fill:'#69665e','font-family':'DM Sans','font-size':14},plane).textContent=f==='LL'?'ARRIVE / BUILD READINESS':f==='L3'?'SCALE · ITERATE · STOP · REALLOCATE':`NEXT FLOOR → ${f==='L1'?'L2':'L3'}`;
@@ -106,7 +103,6 @@ function drawRoofBarrier(parent,left,right,scale=1){
 }
 function drawArchitecture(g,f){
  const p=g._decor;p.innerHTML='';if(f==='Foundation')return;
- for(const [x,y] of g._planters??[])balconyPlanter(p,...project(x,y),.85);
  // Windows and dividing walls remain deliberately light, as in the Figma map.
  path3(p,[[20,0,30],[280,0,30],[280,0,118],[20,0,118],[20,0,30]],{fill:'#82969f','fill-opacity':.13,'stroke-opacity':.5});
  path3(p,[[150,0,30],[150,0,118]],{'stroke-opacity':.5});
@@ -238,14 +234,15 @@ function drawBuildingShell(){
   }
   polygon([p,q,r,t],'#f6bb02',.17);
   polygon([t,r,down(r,13),down(t,13)],'#d8d1b6',.7);
-  balconyPlanter(g,r[0]-56,r[1]+2);
   // Low, open railings preserve the lightweight architectural drawing.
   line([down(p,-67),down(t,-67),down(r,-67),down(q,-67)],.8,2);
   for(let post=0;post<=6;post++){
    const u=post/6,foot=[t[0]+(r[0]-t[0])*u,t[1]+(r[1]-t[1])*u];line([foot,down(foot,-67)],.65,1.7);
   }
   line([p,down(p,-67)],.7,1.7);line([q,down(q,-67)],.7,1.7);
-
+  const planter=[r[0]-42,r[1]+4];
+  polygon([[planter[0]-22,planter[1]-7],[planter[0]+18,planter[1]-26],[planter[0]+36,planter[1]-17],[planter[0]-4,planter[1]+2]],'#aebc9e',.6);
+  for(let leaf=0;leaf<3;leaf++)svg('circle',{cx:planter[0]-9+leaf*12,cy:planter[1]-21-leaf*5,r:10,fill:'#9db99f','fill-opacity':.7,stroke:'#7f927d','stroke-opacity':.55,'stroke-width':1.3},g);
  }
  svg('text',{x:-135,y:base[3][1]+80,fill:'#777467','font-family':'DM Sans','font-size':24},g).textContent='GROUND / LL';
  g.style.opacity=state.exterior;
