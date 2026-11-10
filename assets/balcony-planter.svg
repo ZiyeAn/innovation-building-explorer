@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 64">
+ <ellipse cx="38" cy="54" rx="30" ry="7" fill="#5a6252" opacity=".16"/>
+ <g stroke="#757867" stroke-linejoin="round" stroke-width="1.2">
+  <path d="M4 39 47 19 68 29 26 50Z" fill="#e0d6c4"/>
+  <path d="m4 39 22 11 1 11L6 50Z" fill="#b6ac99"/>
+  <path d="M26 50 68 29 66 41 27 61Z" fill="#9a927f"/>
+  <path d="m11 39 36-16 14 6-35 17Z" fill="#777463"/>
+ </g>
+ <g id="shrub">
+  <path d="M47 30V18" stroke="#777767" stroke-width="2"/>
+  <path d="M36 18c-2-5 1-10 5-11 2-5 9-6 13-2 5 0 7 5 6 10 2 7-4 12-11 12-7 1-13-3-13-9Z" fill="#82977c" stroke="#758471"/>
+  <path d="M37 17c-1-5 1-8 5-9 3-5 9-5 12-2 1 5-2 9-6 10-3 4-8 4-11 1Z" fill="#adc0a1"/>
+ </g>
+ <use href="#shrub" transform="translate(-14 6)"/>
+ <use href="#shrub" transform="translate(-25 15) scale(.94)"/>
+</svg>
