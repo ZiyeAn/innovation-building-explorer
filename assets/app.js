@@ -61,14 +61,14 @@ function drawFloor(f){
    svg('polygon',{points:[[ax,ay],[bx,by],[bx+depth,by+depth],[ax+depth,ay+depth]].map(pt=>pt.join(',')).join(' '),fill},slab);
   }
  };
- if(f==='Foundation')addSlab(-70,-20,1480,790);
+ if(f==='Foundation'){const volume=svg('g',{class:'foundation-volume','pointer-events':'none','aria-hidden':'true'},g);g.insertBefore(volume,plane);}
  else{
   addSlab(0,0,1083,676);
   const count=data[f].groups.external.length;
   for(let i=0;i<count;i++)addSlab(1083,i*(count===2?354:233),388,count===2?322:210);
  }
  if(f==='Foundation'){
-  svg('rect',{x:-70,y:-20,width:1480,height:790,fill:'#c9c0b3',stroke:'#aaa194','stroke-width':2},plane);
+  svg('rect',{x:-70,y:-20,width:1480,height:790,fill:'#c9c0b3',stroke:'#aaa194','stroke-width':2,class:'foundation-plan-base'},plane);
   data[f].groups.foundation.forEach((r,i)=>{roomShape(plane,r,40+i%2*570,60+Math.floor(i/2)*350,460,250);});
  }else{
   blueprint(plane);const d=data[f].groups;
@@ -101,6 +101,21 @@ function drawRoofBarrier(parent,left,right,scale=1){
  for(let x=13;x<142;x+=30)svg('path',{d:`M${x} -45h12l10 25h-12z`,fill:'#75775e'},g);
  for(const x of [1,157])svg('rect',{x,y:-64,width:4,height:64,rx:1.5,fill:frame},g);
 }
+function drawFoundationVolume(g){
+ const volume=$('.foundation-volume',g);if(!volume)return;volume.innerHTML='';
+ const p=state.projection,q=(x,y,z)=>{const a=project(x,y,z);return[a[0]-260*p,a[1]];};
+ const face=(points,fill)=>svg('polygon',{points:points.map(v=>q(...v).join(',')).join(' '),fill,stroke:'#8f8778','stroke-width':1.8,'stroke-linejoin':'round'},volume);
+ const [x,y,w,h]=[-70,-20,1480,790],z=-135,bottom=-210;
+ face([[x,y,z],[x+w,y,z],[x+w,y+h,z],[x,y+h,z]],'#c9c0af');
+ face([[x,y+h,z],[x+w,y+h,z],[x+w,y+h,bottom],[x,y+h,bottom]],'#afa28e');
+ face([[x+w,y,z],[x+w,y+h,z],[x+w,y+h,bottom],[x+w,y,bottom]],'#988d7c');
+ data.Foundation.groups.foundation.forEach((r,i)=>{
+  const bx=40+i%2*570,by=60+Math.floor(i/2)*350,bw=460,bh=250;
+  face([[bx,by+bh,0],[bx+bw,by+bh,0],[bx+bw,by+bh,z],[bx,by+bh,z]],'#b3a58e');
+  face([[bx+bw,by,0],[bx+bw,by+bh,0],[bx+bw,by+bh,z],[bx+bw,by,z]],'#968c79');
+ });
+ volume.style.opacity=1-p;$('.foundation-plan-base',g).style.opacity=p;
+}
 function drawArchitecture(g,f){
  const p=g._decor;p.innerHTML='';if(f==='Foundation')return;
  // Windows and dividing walls remain deliberately light, as in the Figma map.
@@ -132,7 +147,7 @@ function dPins(g,f){
 function floorBase(f){return BASE[f]*state.spread+(f==='Foundation'?1180:1080-ORDER.indexOf(f)*70)*(1-state.spread);}
 function updateProjection(){
  world.classList.toggle('plan-markers',state.view==='plan');
- for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-slab',g).style.opacity=1-p;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
+ for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-slab',g).style.opacity=1-p;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);if(f==='Foundation')drawFoundationVolume(g);$('.architectural',g).style.opacity=1-p;
   $$('.roadblock-pin',g).forEach(pin=>{let [x,y]=project(...pin._coords);if(p){x-=260*p;}pin.setAttribute('transform',`translate(${x} ${y})`);});
  }
  drawConnections();drawBuildingShell();exteriorAppearance();
@@ -336,7 +351,7 @@ function buildWorld(){
 function setCamera(target,animate=true){
  gsap.killTweensOf(camera);gsap.to(camera,{...target,duration:animate?duration(.85):0,ease,onUpdate:()=>map.setAttribute('viewBox',`${camera.x} ${camera.y} ${camera.w} ${camera.h}`)});
 }
-function homeCamera(){if(state.floor==='all')return {x:-200,y:state.spread? -60:500,w:1440,h:state.spread?2180:1300};const b=floorBase(state.floor);return state.view==='plan'?{x:-150,y:b-45,w:1330,h:650}:{x:-210,y:b-210,w:1440,h:860};}
+function homeCamera(){if(state.floor==='all')return {x:-200,y:state.spread? -60:500,w:1440,h:state.spread?2360:1480};const b=floorBase(state.floor);if(state.floor==='Foundation'&&state.view==='iso')return{x:-260,y:b-100,w:1600,h:1000};return state.view==='plan'?{x:-150,y:b-45,w:1330,h:650}:{x:-210,y:b-210,w:1440,h:860};}
 function fitCamera(){setExterior(false);state.zoom=1;cameraHome=homeCamera();setCamera(cameraHome);updateZoom();}
 function updateZoom(){$('#zoom-label').textContent=Math.round(state.zoom*100)+'%';}
 function zoomBy(factor){
