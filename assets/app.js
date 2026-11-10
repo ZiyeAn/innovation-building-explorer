@@ -1,7 +1,7 @@
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const NS = 'http://www.w3.org/2000/svg';
-const C = {internal:'#2a4c9e',external:'#f6bb02',reflection:'#9db99f',roadblocks:'#bd1b1f',foundation:'#b9afa1'};
+const C = {internal:'#2a4c9e',external:'#f6bb02',reflection:'#9db99f',roadblocks:'#bd1b1f',foundation:'#d8d0c4'};
 const CAT = {internal:'Internal',external:'External',reflection:'Reflection',roadblocks:'Roadblocks',foundation:'Foundation'};
 const ORDER = ['Foundation','LL','L1','L2','L3'];
 const NAMES = {Foundation:'Shared foundations',LL:'Organizational Readiness',L1:'Sense & Choose',L2:'Connect & Build',L3:'Experiment & Grow'};
@@ -103,6 +103,7 @@ function drawRoofBarrier(parent,left,right,scale=1){
 }
 function drawFoundationVolume(g){
  const volume=$('.foundation-volume',g);if(!volume)return;volume.innerHTML='';
+ let columns=$('.foundation-columns',g);if(!columns)columns=svg('g',{class:'foundation-columns','pointer-events':'none','aria-hidden':'true'},g);columns.innerHTML='';
  const p=state.projection,q=(x,y,z)=>{const a=project(x,y,z);return[a[0]-260*p,a[1]];};
  const face=(points,fill)=>svg('polygon',{points:points.map(v=>q(...v).join(',')).join(' '),fill,stroke:'#8f8778','stroke-width':1.8,'stroke-linejoin':'round'},volume);
  const [x,y,w,h]=[-70,-20,1480,790],z=-42,bottom=-72;
@@ -113,7 +114,16 @@ function drawFoundationVolume(g){
   const bx=40+i%2*570,by=60+Math.floor(i/2)*350,bw=460,bh=250;
   face([[bx,by+bh,0],[bx+bw,by+bh,0],[bx+bw,by+bh,z],[bx,by+bh,z]],'#b3a58e');
   face([[bx+bw,by,0],[bx+bw,by+bh,0],[bx+bw,by+bh,z],[bx+bw,by,z]],'#968c79');
+  // Glass-like supports sit above the unchanged shallow footings.
+  const cx=bx+100,cy=by+45,cw=260,ch=160,top=245;
+  const glass=(pts,fill,opacity)=>svg('polygon',{points:pts.map(v=>q(...v).join(',')).join(' '),fill,'fill-opacity':opacity,stroke:'#939b98','stroke-opacity':.3,'stroke-width':1.2,'stroke-linejoin':'round'},columns);
+  glass([[cx,cy,0],[cx+cw,cy,0],[cx+cw,cy,top],[cx,cy,top]],'#9ca9a4',.11);
+  glass([[cx,cy,0],[cx,cy+ch,0],[cx,cy+ch,top],[cx,cy,top]],'#a7b1ad',.13);
+  for(let level=0;level<=top;level+=49)glass([[cx,cy,level],[cx+cw,cy,level],[cx+cw,cy+ch,level],[cx,cy+ch,level]],'#b9c1bb',level===top?.1:.16);
+  glass([[cx+cw,cy,0],[cx+cw,cy+ch,0],[cx+cw,cy+ch,top],[cx+cw,cy,top]],'#cbd0c9',.09);
+
  });
+ columns.style.opacity=(1-p)*(1-state.exterior*.5);
  volume.style.opacity=1-p;$('.foundation-plan-base',g).style.opacity=p;
 }
 function drawArchitecture(g,f){
