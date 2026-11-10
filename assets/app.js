@@ -249,14 +249,14 @@ function drawPlanStairs(parent){
  for(const direction of directions){
   const routeIndex=direction===1&&incoming>=0?incoming:outgoing;
   const stair=STAIR[routeIndex];
-  const label=direction?`${stair.from} → ${stair.to}`:`${stair.to} → ${stair.from}`,y=directions.length===1?112:(direction?225:0);
+  const label=`${stair.from} → ${stair.to}`,y=directions.length===1?112:(direction?225:0);
   const g=svg('g',{class:'plan-stairs narrow-stairs',role:'button',tabindex:0,'aria-label':`Stairs ${label}`,transform:`translate(0 ${y})`},strip);
   svg('rect',{x:0,y:0,width:76,height:194,class:'plan-stairs-badge'},g);
   const icon=svg('g',{'aria-hidden':'true',class:'plan-stairs-icon'},g);
   for(let i=1;i<16;i++)svg('path',{d:`M2 ${i*12}h72`,fill:'none'},icon);
-  svg('path',{d:direction?'M38 170V24m-8 10 8-10 8 10':'M38 24v146m-8-10 8 10 8-10',fill:'none','stroke-width':2},icon);
+  svg('path',{d:stair.from===state.floor?'M38 170V24m-8 10 8-10 8 10':'M38 24v146m-8-10 8 10 8-10',fill:'none','stroke-width':2},icon);
   svg('text',{transform:'translate(38 97) rotate(-90)','text-anchor':'middle','dominant-baseline':'middle',class:'narrow-stairs-label'},g).textContent=label;
-  const activate=()=>{if(!suppressClick)showStaircase(routeIndex,direction===0);};g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+  const activate=()=>{if(!suppressClick)showStaircase(routeIndex,stair.to===state.floor);};g.addEventListener('click',activate);g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
  }
 }
 function drawConnections(){
