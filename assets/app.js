@@ -264,6 +264,7 @@ function drawBuildingShell(){
 }
 function exteriorAppearance(){
  const amount=state.exterior;
+ const foundation=$('#floor-Foundation');$('.floor-plane',foundation).style.opacity=1-amount*.45;$('.foundation-volume',foundation).style.opacity=(1-state.projection)*(1-amount*.5);
  for(const f of ORDER){if(f==='Foundation')continue;const g=$('#floor-'+f);$('.floor-plane',g).style.opacity=1-amount;$('.architectural',g).style.opacity=(1-state.projection)*(1-amount);$('.roadblock-pins',g).style.opacity=1-amount;}
  $('#building-shell')?.style.setProperty('opacity',amount);
  for(const layer of $$('#building-connections,#lift-layer'))layer.style.visibility=exteriorVisible?'hidden':'';
