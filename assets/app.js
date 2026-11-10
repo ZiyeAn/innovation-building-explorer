@@ -253,15 +253,36 @@ function drawConnections(){
  const con=$('#building-connections');if(!con)return;con.innerHTML='';
  world.appendChild(con);
  if(state.view==='plan'){drawPlanStairs(con);return;}
- const liftX=680,top=floorBase('L3')+170,bottom=floorBase('LL')+170;
- const lift=svg('g',{class:'lift-visual',role:'button',tabindex:'0','aria-label':'Explore express lift shortcuts'},con);
- svg('path',{d:`M${liftX},${top-140}l42,24v${bottom-top+140}l-42,-24z`,fill:'#82969f','fill-opacity':.13,stroke:'#727c78','stroke-opacity':.45,'stroke-width':1.5},lift);
- svg('path',{d:`M${liftX+42},${top-116}l19,-11v${bottom-top+140}l-19,11z`,fill:'#82969f','fill-opacity':.21,stroke:'#727c78','stroke-opacity':.4},lift);
- for(const f of ['LL','L1','L2','L3']){const y=floorBase(f)+165;svg('path',{d:`M${liftX+6},${y-50}l30,17v51l-30,-17zM${liftX+21},${y-42}v51`,fill:'none',stroke:'#727c78','stroke-opacity':.45},lift);}
- svg('rect',{id:'lift-cabin',x:liftX+4,y:bottom-50,width:33,height:57,fill:'#2a4c9e','fill-opacity':.3,stroke:'#727c78','stroke-width':1},lift);
+ const liftX=680, top=floorBase('L3')+170, bottom=floorBase('LL')+170;
+ const lift=svg('g',{class:'lift-visual',role:'button',tabindex:0,'aria-label':'Explore express lift shortcuts'},con);
+ const roof=top-78, foot=bottom+8;
+ svg('path',{d:`M680 ${roof}l43 25V${foot+25}l-43 -25Z`,fill:'#bdc9c2',stroke:'#7b8881'},lift);
+ svg('path',{d:`M723 ${roof+25}l20 -12V${foot+13}l-20 12Z`,fill:'#a3b3ac',stroke:'#7b8881'},lift);
+ svg('path',{d:`M680 ${roof}l20 -12 43 25 -20 12Z`,fill:'#d8dfd7',stroke:'#7b8881'},lift);
+ for(const x of [685,718,740])svg('line',{x1:x,x2:x,y1:roof+25,y2:foot+12,stroke:'#7d8d84','stroke-width':2},lift);
+ for(const floor of ORDER.slice(1)){
+  const y=floorBase(floor)+170;
+  svg('image',{href:'assets/lift-landing.svg',x:liftX-2,y:y-61,width:67,height:82,preserveAspectRatio:'none'},lift);
+ }
+ svg('image',{id:'lift-cabin',href:'assets/lift-car.svg',x:liftX+5,y:bottom-74,width:49,height:83,preserveAspectRatio:'none'},lift);
  connectionLabel(con,lift,900,(top+bottom)/2,'↑↓ Shortcuts ↗','Explore express lift shortcuts',showShortcuts,722,(top+bottom)/2);
- lift.addEventListener('click',showShortcuts);lift.addEventListener('keydown',e=>{if(e.key==='Enter')showShortcuts();});
- for(let i=1;i<ORDER.length-1;i++){const low=ORDER[i],high=ORDER[i+1],y1=floorBase(low)+150,y2=floorBase(high)+150;const x1=100,x2=82;const st=svg('g',{class:'stairs-visual',role:'button',tabindex:'0','aria-label':`Staircase ${low} to ${high}`},con);svg('path',{d:`M${x1},${y1}L${x2},${y2}l18,8L${x1+18},${y1+8}z`,fill:'#f5f1ea',stroke:'#a39a8b','stroke-width':1},st);for(let j=0;j<26;j++){const t=j/26;svg('path',{d:`M${x1+(x2-x1)*t} ${y1+(y2-y1)*t}l18,8`,stroke:'#a39a8b','stroke-width':.7},st);}st.style.cursor='pointer';const cb=()=>showStaircase(i-1);connectionLabel(con,st,-260,(y1+y2)/2,`${low} → ${high} ↗`,`Staircase ${low} to ${high}`,cb,95,(y1+y2)/2);st.addEventListener('click',cb);st.addEventListener('keydown',e=>{if(e.key==='Enter')cb();});}
+ bindConnection(lift,showShortcuts);
+ STAIR.forEach((route,index)=>{
+  const upper=floorBase(route.to)+150, lower=floorBase(route.from)+150;
+  const label=`Staircase ${route.from} to ${route.to}`;
+  const flight=svg('g',{class:'stairs-visual',role:'button',tabindex:0,'aria-label':label},con);
+  svg('image',{href:'assets/switchback.svg',x:66,y:upper-8,width:90,height:lower-upper+16,preserveAspectRatio:'none'},flight);
+  const open=()=>showStaircase(index);
+  connectionLabel(con,flight,-260,(upper+lower)/2,`${route.from} → ${route.to} ↗`,label,open,109,(upper+lower)/2);
+  bindConnection(flight,open);
+ });
+}
+function bindConnection(node,open){
+ node.style.cursor='pointer';
+ node.addEventListener('click',open);
+ node.addEventListener('keydown',event=>{
+  if(event.key==='Enter'||event.key===' '){event.preventDefault();open();}
+ });
 }
 function buildWorld(){
  svg('g',{id:'building-connections'},world);
@@ -324,14 +345,15 @@ function bindInspector(){
 }
 const ROUTES=[{start:'LL',end:'L2',title:'Established Strategic Focus',conditions:['Target markets & users defined','Reusable insights available','Ready to build partnerships']},{start:'L1',end:'L3',title:'Ready-to-Test Opportunity',conditions:['Partners & capabilities in place','Clear owner for the test','Experiment resources available']},{start:'LL',end:'L3',title:'Existing Innovation Platform',conditions:['Established team & partners','Clear ownership & decision rights','Resources ready for experimentation']}];
 function showShortcuts(){stopRoute();selectFloor('all');renderInspector(`<div class="inspector-kicker">↑↓ Express lift</div><h2>Take what you<br>already know.<br>Go further.</h2><p class="lead">The stairs build capabilities step by step. The lift connects distant floors when those capabilities are already in place.</p>${ROUTES.map((r,i)=>`<button class="route-button" data-route="${i}"><strong>${r.start} → ${r.end} <span style="display:inline;font-size:21px">↗</span></strong><span>${r.title}</span></button>`).join('')}<div class="intro-rule"></div><h3>Entry conditions / all routes</h3><p class="lead">Shared vision & clear innovation strategy.</p><p class="inspector-footnote">If a capability gap appears, return to the relevant floor.</p>`,true);}
-function stopRoute(){if(routeRun){routeRun.kill();routeRun=null;}gsap.killTweensOf('#lift-cabin');$('#route-overlay')?.remove();}
+function stopRoute(){if(routeRun){routeRun.kill();routeRun=null;}const car=$('#lift-cabin');if(car){gsap.killTweensOf(car);car.setAttribute('y',floorBase('LL')+96);}$('#route-overlay')?.remove();}
 function runRoute(index){
  stopRoute();if(state.view==='plan')setView('iso');const r=ROUTES[index];state.floor='all';state.room=null;gsap.to($('#building-connections'),{opacity:1,duration:duration(.3)});updateFilters();for(const f of ORDER){const g=$('#floor-'+f),active=[r.start,r.end].includes(f);g.classList.remove('inactive');gsap.to(g,{opacity:active?1:.12,duration:duration(.4),overwrite:true});}
  renderInspector(`<button class="back-button" data-action="shortcuts">← All express routes</button><div class="inspector-kicker">Express route / ${index+1}</div><h2>${r.start} → ${r.end}</h2><p class="lead">${r.title}</p><div class="route-progress"><span></span></div><h3>Ready to board?</h3><ul class="detail-list">${r.conditions.map(c=>`<li>${c}</li>`).join('')}</ul><button class="primary-button" data-floor="${r.end}">Step into ${r.end} <span>↗</span></button><p class="inspector-footnote">Direct access uses existing capabilities. It does not remove the need to test assumptions.</p>`,true);
  const o=svg('g',{id:'route-overlay','pointer-events':'none'},world),top=floorBase(r.end)+170,bot=floorBase(r.start)+170;
  svg('path',{d:`M740 ${bot}V${top}`,stroke:'#2a4c9e','stroke-width':4,fill:'none','stroke-dasharray':'10 8'},o);
- const cabin=svg('rect',{x:727,y:bot-15,width:26,height:30,fill:'#2a4c9e',rx:3},o);
- routeRun=gsap.timeline();routeRun.to(cabin,{attr:{y:top-15},duration:duration(2.1),ease:'power2.inOut'},0).to('.route-progress span',{width:'100%',duration:duration(2.1),ease:'power2.inOut'},0);
+ const cabin=$('#lift-cabin');
+ cabin.setAttribute('y',bot-74);
+ routeRun=gsap.timeline();routeRun.to(cabin,{attr:{y:top-74},duration:duration(2.1),ease:'power2.inOut'},0).to('.route-progress span',{width:'100%',duration:duration(2.1),ease:'power2.inOut'},0);
  setCamera({x:-210,y:floorBase(r.end)-170,w:1440,h:floorBase(r.start)-floorBase(r.end)+800});
 }
 const STAIR=[{from:'LL',to:'L1',title:'Build Readiness',steps:['Identify barriers','Design enablers','Assign owners & resources','Establish routines']},{from:'L1',to:'L2',title:'Develop Strategic Focus',steps:['Scan signals','Interpret drivers','Frame markets','Understand users','Choose where to play']},{from:'L2',to:'L3',title:'Build Collective Commitment',steps:['Map actors','Choose our role','Build partnerships','Align initiatives','Confirm capabilities & ownership']}];
