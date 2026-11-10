@@ -240,13 +240,15 @@ function connectionLabel(parent,visual,x,y,title,label,activate,anchorX,anchorY)
  g.addEventListener('click',()=>{if(!suppressClick)activate();});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
 }
 function drawPlanStairs(parent){
- const index=STAIR.findIndex(stair=>stair.from===state.floor);
- const routeIndex=index>=0?index:STAIR.findIndex(stair=>stair.to===state.floor);
- if(routeIndex<0)return;
- const stair=STAIR[routeIndex],base=floorBase(state.floor);
+ const outgoing=STAIR.findIndex(stair=>stair.from===state.floor);
+ const incoming=STAIR.findIndex(stair=>stair.to===state.floor);
+ if(outgoing<0&&incoming<0)return;
+ const base=floorBase(state.floor);
  const strip=svg('g',{class:'plan-stair-strip',transform:`translate(-12 ${base})`},parent);
- const directions=state.floor==='LL'||state.floor==='L3'?[1]:[0,1];
+ const directions=incoming>=0&&outgoing>=0?[0,1]:[1];
  for(const direction of directions){
+  const routeIndex=direction===1&&incoming>=0?incoming:outgoing;
+  const stair=STAIR[routeIndex];
   const label=direction?`${stair.from} → ${stair.to}`:`${stair.to} → ${stair.from}`,y=directions.length===1?112:(direction?225:0);
   const g=svg('g',{class:'plan-stairs narrow-stairs',role:'button',tabindex:0,'aria-label':`Stairs ${label}`,transform:`translate(0 ${y})`},strip);
   svg('rect',{x:0,y:0,width:76,height:194,class:'plan-stairs-badge'},g);
