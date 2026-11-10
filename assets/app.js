@@ -52,6 +52,21 @@ function terrace(parent,rect){
 }
 function drawFloor(f){
  const g=svg('g',{class:'floor-region','data-floor':f,id:'floor-'+f},world),plane=svg('g',{class:'floor-plane'},g);
+ const slab=svg('g',{class:'floor-slab','pointer-events':'none','aria-hidden':'true'},plane);
+ const addSlab=(x,y,width,height)=>{
+  const depth=f==='Foundation'?50:32;
+  const right=x+width,front=y+height;
+  // Equal offsets on the two plan axes project vertically in the isometric view.
+  for(const [ax,ay,bx,by,fill] of [[x,front,right,front,'#b4aa9d'],[right,front,right,y,'#9f968a']]){
+   svg('polygon',{points:[[ax,ay],[bx,by],[bx+depth,by+depth],[ax+depth,ay+depth]].map(pt=>pt.join(',')).join(' '),fill},slab);
+  }
+ };
+ if(f==='Foundation')addSlab(-70,-20,1480,790);
+ else{
+  addSlab(0,0,1083,676);
+  const count=data[f].groups.external.length;
+  for(let i=0;i<count;i++)addSlab(1083,i*(count===2?354:233),388,count===2?322:210);
+ }
  if(f==='Foundation'){
   svg('rect',{x:-70,y:-20,width:1480,height:790,fill:'#c9c0b3',stroke:'#aaa194','stroke-width':2},plane);
   data[f].groups.foundation.forEach((r,i)=>{roomShape(plane,r,40+i%2*570,60+Math.floor(i/2)*350,460,250);});
@@ -105,7 +120,7 @@ function dPins(g,f){
 function floorBase(f){return BASE[f]*state.spread+(f==='Foundation'?1180:1080-ORDER.indexOf(f)*70)*(1-state.spread);}
 function updateProjection(){
  world.classList.toggle('plan-markers',state.view==='plan');
- for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
+ for(const f of ORDER){const g=$('#floor-'+f);g.setAttribute('transform',`translate(0 ${floorBase(f)})`);const p=state.projection;$('.floor-slab',g).style.opacity=1-p;$('.floor-link',g).setAttribute('transform',`translate(${-30*p} ${-115*p})`);$('.floor-plane',g).setAttribute('transform',`matrix(${.52+.10*p} ${.24*(1-p)} ${-.52*(1-p)} ${.24+.38*p} ${340-260*p} 0)`);drawArchitecture(g,f);$('.architectural',g).style.opacity=1-p;
   $$('.roadblock-pin',g).forEach(pin=>{let [x,y]=project(...pin._coords);if(p){x-=260*p;}pin.setAttribute('transform',`translate(${x} ${y})`);});
  }
  drawConnections();drawBuildingShell();exteriorAppearance();
